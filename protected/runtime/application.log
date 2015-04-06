@@ -14,3 +14,549 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/favicon.ico
 ---
+2015/04/05 20:18:50 [error] [php] include(CUtils.php): failed to open stream: No such file or directory (C:\xampp\htdocs\yii\framework\YiiBase.php:421)
+Stack trace:
+#0 C:\xampp\htdocs\urfleague\protected\extensions\Curl.php(227): spl_autoload_call()
+#1 C:\xampp\htdocs\urfleague\protected\views\site\index.php(10): Curl->run()
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): SiteController->renderInternal()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#6 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#7 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\extensions\Curl.php (227)
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (10)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+2015/04/05 20:19:24 [error] [php] include(CUtils.php): failed to open stream: No such file or directory (C:\xampp\htdocs\yii\framework\YiiBase.php:421)
+Stack trace:
+#0 C:\xampp\htdocs\urfleague\protected\extensions\Curl.php(227): spl_autoload_call()
+#1 C:\xampp\htdocs\urfleague\protected\views\site\index.php(10): Curl->run()
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): SiteController->renderInternal()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#6 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#7 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\extensions\Curl.php (227)
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (10)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+2015/04/05 20:19:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 20:19:28 [error] [php] include(CUtils.php): failed to open stream: No such file or directory (C:\xampp\htdocs\yii\framework\YiiBase.php:421)
+Stack trace:
+#0 C:\xampp\htdocs\urfleague\protected\extensions\Curl.php(227): spl_autoload_call()
+#1 C:\xampp\htdocs\urfleague\protected\views\site\index.php(10): Curl->run()
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): SiteController->renderInternal()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#6 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#7 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\extensions\Curl.php (227)
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (10)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+2015/04/05 20:19:28 [error] [php] include(CUtils.php): failed to open stream: No such file or directory (C:\xampp\htdocs\yii\framework\YiiBase.php:421)
+Stack trace:
+#0 C:\xampp\htdocs\urfleague\protected\extensions\Curl.php(227): spl_autoload_call()
+#1 C:\xampp\htdocs\urfleague\protected\views\site\index.php(10): Curl->run()
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): SiteController->renderInternal()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#6 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#7 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\extensions\Curl.php (227)
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (10)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+2015/04/05 20:19:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 20:20:26 [error] [php] include(CUtils.php): failed to open stream: No such file or directory (C:\xampp\htdocs\yii\framework\YiiBase.php:421)
+Stack trace:
+#0 C:\xampp\htdocs\urfleague\protected\extensions\Curl.php(227): spl_autoload_call()
+#1 C:\xampp\htdocs\urfleague\protected\views\site\index.php(10): Curl->run()
+#2 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require()
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): SiteController->renderInternal()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#6 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#7 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#8 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#11 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\extensions\Curl.php (227)
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (10)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+2015/04/05 20:20:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 20:44:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 20:44:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 20:46:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 20:49:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 21:01:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/05 21:48:07 [error] [exception.CException] exception 'CException' with message 'CWebApplication and its behaviors do not have a method or closure named "basePath".' in C:\xampp\htdocs\yii\framework\base\CComponent.php:265
+Stack trace:
+#0 C:\xampp\htdocs\urfleague\protected\components\Utils.php(7): CComponent->__call('basePath', Array)
+#1 C:\xampp\htdocs\urfleague\protected\components\Utils.php(7): CWebApplication->basePath(true)
+#2 C:\xampp\htdocs\urfleague\protected\views\site\index.php(26): Utils::getChampionImagePath('Ezreal.png')
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#4 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', NULL, true)
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', NULL, true)
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#7 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): CController->render('index')
+#8 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/index')
+#14 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/site/index
+HTTP_REFERER=http://urf.loc/site/page?view=about
+---
+2015/04/05 22:20:45 [error] [php] Invalid argument supplied for foreach() (C:\xampp\htdocs\urfleague\protected\views\site\index.php:63)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#1 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#2 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#3 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#8 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (63)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+in C:\xampp\htdocs\urfleague\index.php (13)
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/81".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/81
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/3285.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/3285.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/0.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/0.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/35".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/35
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/268".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/268
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/121".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/121
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/24".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/24
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/92".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/92
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/26".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/26
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/238".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/238
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/3".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/3
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/05 22:23:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/45".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/45
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/81".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/81
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/3285.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/3285.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/0.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/0.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/35".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/35
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/24".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/24
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/26".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/26
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/121".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/121
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/92".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/92
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/45".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/45
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/268".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/268
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/3".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/3
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/238".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/238
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:02:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2015/04/06 07:16:16 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'name' cannot be null. The SQL statement executed was: INSERT INTO `champion` (`name`, `image`) VALUES (:name, :image).
+in C:\xampp\htdocs\urfleague\protected\components\Utils.php (13)
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (68)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+2015/04/06 07:16:16 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'name' cannot be null. The SQL statement executed was: INSERT INTO `champion` (`name`, `image`) VALUES (:name, :image)' in C:\xampp\htdocs\yii\framework\db\CDbCommand.php:357
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\db\CDbCommand.php(1247): CDbCommand->execute(Array)
+#1 C:\xampp\htdocs\urfleague\protected\components\Utils.php(13): CDbCommand->insert('champion', Array)
+#2 C:\xampp\htdocs\urfleague\protected\views\site\index.php(68): Utils::getChampionImage(81)
+#3 C:\xampp\htdocs\yii\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#4 C:\xampp\htdocs\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', NULL, true)
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', NULL, true)
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#7 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): CController->render('index')
+#8 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#9 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\xampp\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#11 C:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#13 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/index')
+#14 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/site/index
+HTTP_REFERER=http://urf.loc/site/page?view=about
+---
+2015/04/06 07:17:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/0.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/0.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:17:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/champion/Azir.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/champion/Azir.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:17:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/3285.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/3285.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:19:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/0.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/0.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:20:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/0.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/0.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:20:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "dragon_data/4.4.3/img/item/0.png".' in C:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('dragon_data/4.4...')
+#1 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\urfleague\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/dragon_data/4.4.3/img/item/0.png
+HTTP_REFERER=http://urf.loc/site/index
+---
+2015/04/06 07:31:43 [error] [php] Undefined index: kills (C:\xampp\htdocs\urfleague\protected\views\site\index.php:70)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#1 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#2 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#3 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#8 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (70)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+in C:\xampp\htdocs\urfleague\index.php (13)
+2015/04/06 07:36:16 [error] [php] Undefined index: totalDamageDealtToChampions (C:\xampp\htdocs\urfleague\protected\views\site\index.php:75)
+Stack trace:
+#0 C:\xampp\htdocs\yii\framework\web\CController.php(869): SiteController->renderFile()
+#1 C:\xampp\htdocs\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#2 C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php(32): SiteController->render()
+#3 C:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#4 C:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\yii\framework\web\CController.php(286): SiteController->runAction()
+#6 C:\xampp\htdocs\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#8 C:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\urfleague\index.php(13): CWebApplication->run()
+REQUEST_URI=/site/index
+in C:\xampp\htdocs\urfleague\protected\views\site\index.php (75)
+in C:\xampp\htdocs\urfleague\protected\controllers\SiteController.php (32)
+in C:\xampp\htdocs\urfleague\index.php (13)

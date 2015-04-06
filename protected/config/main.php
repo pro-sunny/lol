@@ -16,6 +16,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.extensions.*',
 	),
 
 	'modules'=>array(
@@ -77,6 +78,9 @@ return array(
 				*/
 			),
 		),
+        'CURL' =>array(
+            'class'=>'application.extensions.Curl'
+        ),
 	),
 
 	// application-level parameters that can be accessed
@@ -84,5 +88,8 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'dragonImagePath' =>'4.4.3/img',
+        'webRoot' => YiiBase::getPathOfAlias('webroot'),
+        'key' => require(dirname(__FILE__) . '/key.php'),
 	),
 );
