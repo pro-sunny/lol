@@ -39,4 +39,21 @@ class Utils {
 
     }
 
+    public static function getChampionSpells($champion_id)
+    {
+        $champion_name = self::$champions_data['keys'][$champion_id];
+        $spell_info = self::$champions_data['data'][$champion_name]['spells'];
+        foreach ($spell_info as $id => $spell) {
+            $data[$id]['name'] = $spell['name'];
+            $data[$id]['tooltip'] = $spell['tooltip'];
+            $data[$id]['image'] = $spell['image']['full'];
+        }
+    }
+
+    public static function spellParser( $spell ){
+        $tooltip = $spell['tooltip'];
+
+
+    }
+
 } 

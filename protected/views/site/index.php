@@ -25,7 +25,7 @@ $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->par
 $data = CJSON::decode($string);
 // $data = json_decode($string, true);
 echo '<pre>';
-// print_r($data);
+print_r($data);
 echo '</pre>';
 
 
@@ -49,12 +49,15 @@ $win_status = array( true => 'WIN', false => 'LOSE' );
         <td>item6</td>
         <td>rank</td>
         <td>champion</td>
+        <td>spells</td>
         <td>KDA</td>
         <td>Who won</td>
         <td>Domage done</td>
         <td>Domage taken</td>
     </tr>
-    <? foreach ($summoners as $summoner) { ?>
+    <? foreach ($summoners as $summoner) {
+        $spells = Utils::getChampionSpells($summoner['championId']);
+        ?>
         <tr>
             <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']))?></td>
             <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']))?></td>
@@ -64,6 +67,12 @@ $win_status = array( true => 'WIN', false => 'LOSE' );
             <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']))?></td>
             <td><?= $summoner['highestAchievedSeasonTier']?></td>
             <td><?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?></td>
+            <td>
+                <?
+
+                ?>
+                <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?>
+            </td>
             <td><?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?></td>
             <td><?= $win_status[$summoner['stats']['winner']]?></td>
             <td><?= $summoner['stats']['totalDamageDealtToChampions']?></td>
