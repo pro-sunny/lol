@@ -2,9 +2,7 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
-?>
 
-<?
 
 Yii::app()->CURL->options['timeout'] = 90;
 
@@ -23,6 +21,13 @@ $data = CJSON::decode($response);
 
 $summoners = $data['participants'];
 
+$string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
+$data = CJSON::decode($string);
+// $data = json_decode($string, true);
+echo '<pre>';
+print_r($data);
+echo '</pre>';
+
 
 echo '<br>';
 echo '<br>';
@@ -32,17 +37,6 @@ echo '<br>';
 echo '<br>';
 echo '<br>';
 
-/*
- * TODO: maybe later js resize
- *
-function resize(img, w, h) {
-  var canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
-  canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-  return canvas;
-}
- * */
 $win_status = array( true => 'WIN', false => 'LOSE' );
 ?>
 <table>
@@ -55,12 +49,15 @@ $win_status = array( true => 'WIN', false => 'LOSE' );
         <td>item6</td>
         <td>rank</td>
         <td>champion</td>
+        <td>spells</td>
         <td>KDA</td>
         <td>Who won</td>
         <td>Domage done</td>
         <td>Domage taken</td>
     </tr>
-    <? foreach ($summoners as $summoner) { ?>
+    <? foreach ($summoners as $summoner) {
+        $spells = Utils::getChampionSpells($summoner['championId']);
+        ?>
         <tr>
             <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']))?></td>
             <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']))?></td>
@@ -70,6 +67,12 @@ $win_status = array( true => 'WIN', false => 'LOSE' );
             <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']))?></td>
             <td><?= $summoner['highestAchievedSeasonTier']?></td>
             <td><?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?></td>
+            <td>
+                <?
+
+                ?>
+                <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?>
+            </td>
             <td><?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?></td>
             <td><?= $win_status[$summoner['stats']['winner']]?></td>
             <td><?= $summoner['stats']['totalDamageDealtToChampions']?></td>
