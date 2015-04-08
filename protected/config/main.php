@@ -88,7 +88,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-        'dragonImagePath' =>'4.4.3/img',
+        'dragonImagePath' =>'5.6.2',
         'webRoot' => YiiBase::getPathOfAlias('webroot'),
         'key' => require(dirname(__FILE__) . '/key.php'),
 	),

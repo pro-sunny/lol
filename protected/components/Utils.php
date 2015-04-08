@@ -3,34 +3,39 @@
 
 class Utils {
 
+    public static $champions_data = array();
+
+    public static function getChampionsData(){
+        if( empty(self::$champions_data) ){
+            $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
+            $data = CJSON::decode($string);
+            self::$champions_data = $data;
+        }
+        return self::$champions_data;
+    }
+
     public static function getChampionImage( $champion_id )
     {
-        $image = Yii::app()->db->createCommand()->select('image')->from('champion')->where('id=:id', array('id'=>$champion_id))->queryScalar();
-        if( empty($image) ){
-            $url = 'https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/'.$champion_id.'?champData=image&api_key=';
-            $response = Yii::app()->CURL->run($url.Yii::app()->params['key']);
-            $data = CJSON::decode($response);
-            Yii::app()->db->createCommand()->insert('champion', array('id'=>$champion_id, 'name'=>$data['name'], 'image'=>$data['image']['full']));
+        $champion_name = self::$champions_data['keys'][$champion_id];
 
-            $image = $data['image']['full'];
-        }
+        $image = self::$champions_data['data'][$champion_name]['image']['full'];
 
         return self::getChampionImagePath( $image );
     }
 
     public static function getChampionImagePath( $image )
     {
-        return Yii::app()->params['webRoot'].'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/champion/'.$image;
+        return Yii::app()->params['webRoot'].'/images/dragon_data/champion/'.$image;
     }
 
     public static function getLeagueImagePath( $image )
     {
-        return Yii::app()->params['webRoot'].'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/champion/'.$image;
+        return Yii::app()->params['webRoot'].'/images/dragon_data/champion/'.$image;
     }
 
     public static function getItemImagePath( $item_id )
     {
-        return Yii::app()->params['webRoot'].'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/item/'.$item_id.'.png';
+        return Yii::app()->params['webRoot'].'/images/dragon_data/item/'.$item_id.'.png';
 
     }
 

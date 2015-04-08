@@ -21,6 +21,13 @@ $data = CJSON::decode($response);
 
 $summoners = $data['participants'];
 
+$string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
+$data = CJSON::decode($string);
+// $data = json_decode($string, true);
+echo '<pre>';
+// print_r($data);
+echo '</pre>';
+
 
 echo '<br>';
 echo '<br>';
