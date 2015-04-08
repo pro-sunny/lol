@@ -237,6 +237,5 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .clearfix, .container {display:block;}
 .clear {clear:both;}
 
-.spell{
-    width:250px;
-}
+.spell{width:300px;}
+.champions_data .item{width: 36px;}

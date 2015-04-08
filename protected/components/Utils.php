@@ -4,6 +4,7 @@
 class Utils {
 
     public static $champions_data = array();
+    public static $items_data = array();
 
     public static function getChampionsData(){
         if( empty(self::$champions_data) ){
@@ -12,6 +13,15 @@ class Utils {
             self::$champions_data = $data;
         }
         return self::$champions_data;
+    }
+
+    public static function getItemsData(){
+        if( empty(self::$items_data) ){
+            $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/item.json');
+            $data = CJSON::decode($string);
+            self::$items_data = $data;
+        }
+        return self::$items_data;
     }
 
     public static function getChampionImage( $champion_id )
@@ -54,6 +64,7 @@ class Utils {
         }
 
         $data['passive'] = self::$champions_data['data'][$champion_name]['passive'];
+        $data['passive']['tooltip'] = $data['passive']['description'];
 
         return $data;
     }
@@ -119,6 +130,13 @@ class Utils {
         }
 
         return $tooltip;
+    }
+
+    public static function getItemInfo($item_id)
+    {
+        $spell_info = self::$items_data['data'][$item_id];
+
+        return $spell_info;
     }
 
 } 

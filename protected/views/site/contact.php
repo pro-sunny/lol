@@ -34,14 +34,6 @@ $this->widget('EToolTipster', array(
 
 //  origin.tooltipster("content", html);
 
-$this->renderPartial('spell', array('spell'=>array(
-    'image'=>'',
-    'name'=>'Tru dagame spell',
-    'cooldown'=>'10/20/30',
-    'cost'=>'10/20/30',
-    'range'=>'100500',
-    'tooltip'=>'deals a lot of domage'
-)))
 
 ?>
 
@@ -69,10 +61,9 @@ $this->renderPartial('spell', array('spell'=>array(
     Some thing there
 </a>
 
-<div style="position: relative;width: 300px;height: 45px; overflow: hidden;">
-    <img alt="" src="/images/dragon_data/sprite/passive0.png" width="0" height="1" style="position: absolute; width: 48px; height: 48px; top:0; left: 0">
+<div>
+    <img alt="" src="" style="width: 48px; height: 48px; background: url(/images/dragon_data/sprite/passive0.png) -48px 0;">
 </div>
-
 
 
 <?php if(Yii::app()->user->hasFlash('contact')): ?>

@@ -21,13 +21,14 @@ $data = CJSON::decode($response);
 
 $summoners = $data['participants'];
 
-$string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
+$string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/item.json');
 $data = CJSON::decode($string);
 // $data = json_decode($string, true);
 echo '<pre>';
-print_r($data);
+// print_r($data);
 echo '</pre>';
 
+echo 'xto vugrav';
 
 echo '<br>';
 echo '<br>';
@@ -40,23 +41,18 @@ echo '<br>';
 $win_status = array( true => 'WIN', false => 'LOSE' );
 
 $this->widget('EToolTipster', array(
-    'target' => '.tooltip',
+    'target' => '.spell',
     'options' => array(
         'position'=>'top',
-        'content'=>'Loading',
         'contentAsHTML'=>true,
         'speed'=>0,
-        'functionBefore'=>'js:function(origin, continueTooltip) {
-                continueTooltip();
+        'functionInit'=>'js:function(origin) {
                 var id = origin.attr("id");
                 var data = id.split("_");
-
-                console.log(data);
-
                 $.ajax({
                     data: {champion_id:data[0], spell_id:data[1]},
                     type: "POST",
-                    url: "site/getSpell",
+                    url: "'.$this->createUrl('site/getSpell').'",
                     success: function(data) {
                         origin.tooltipster("content", data);
                     }
@@ -65,15 +61,34 @@ $this->widget('EToolTipster', array(
     )
 ));
 
+$this->widget('EToolTipster', array(
+    'target' => '.item',
+    'options' => array(
+        'position'=>'top',
+        'contentAsHTML'=>true,
+        'speed'=>0,
+        'functionInit'=>'js:function(origin) {
+                var id = origin.attr("id");
+                $.ajax({
+                    data: {id:id},
+                    type: "POST",
+                    url: "'.$this->createUrl('site/getItem').'",
+                    success: function(data) {
+                        origin.tooltipster("content", data);
+                    }
+                });
+            }'
+    )
+));
 ?>
-<table>
+<table class="champions_data">
     <tr>
-        <td>item1</td>
-        <td>item2</td>
-        <td>item3</td>
-        <td>item4</td>
-        <td>item5</td>
-        <td>item6</td>
+        <td>i1</td>
+        <td>i2</td>
+        <td>i3</td>
+        <td>i4</td>
+        <td>i5</td>
+        <td>i6</td>
         <td>rank</td>
         <td>champion</td>
         <td>spells</td>
@@ -86,17 +101,19 @@ $this->widget('EToolTipster', array(
         $spells = Utils::getChampionSpells($summoner['championId']);
         ?>
         <tr>
-            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']))?></td>
-            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']))?></td>
-            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item3']))?></td>
-            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item4']))?></td>
-            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item5']))?></td>
-            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']))?></td>
+            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']), '', array('class'=>'item', 'id'=>$summoner['stats']['item1']))?></td>
+            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']), '', array('class'=>'item', 'id'=>$summoner['stats']['item2']))?></td>
+            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item3']), '', array('class'=>'item', 'id'=>$summoner['stats']['item3']))?></td>
+            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item4']), '', array('class'=>'item', 'id'=>$summoner['stats']['item4']))?></td>
+            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item5']), '', array('class'=>'item', 'id'=>$summoner['stats']['item5']))?></td>
+            <td><?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']), '', array('class'=>'item', 'id'=>$summoner['stats']['item6']))?></td>
             <td><?= $summoner['highestAchievedSeasonTier']?></td>
             <td><?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?></td>
             <td>
                 <div class="left">
-                    <?= CHtml::image($spells['passive']['image']['full'], '', array('class'=>'tooltip', 'id'=>$summoner['championId'].'_passive'))?><br>
+                    <?
+                    $passive = $spells['passive']['image'];
+                    echo CHtml::image('', '', array('class'=>'spell', 'id'=>$summoner['championId'].'_passive', 'style'=>'width: 48px; height: 48px; background: url(/images/dragon_data/sprite/'.$passive['sprite'].') -'.$passive['x'].'px -'.$passive['y'].'px;'))?><br>
                 </div>
                 <? for( $i = 0; $i < 4; $i++ ){?>
                     <div class="left">

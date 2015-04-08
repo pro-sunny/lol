@@ -24,6 +24,7 @@ class Controller extends CController
     protected function beforeAction($action)
     {
         Utils::getChampionsData();
+        Utils::getItemsData();
 
         return parent::beforeAction($action);
     }

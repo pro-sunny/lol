@@ -120,6 +120,15 @@ class SiteController extends Controller
         $spell = Utils::getChampionSpells( $champion_id );
         $spell = $spell[$spell_id];
 
-        $this->renderPartial('spell', array('spell'=>$spell));
+        $this->renderPartial('spell', array('spell'=>$spell, 'spell_type'=>$spell_id));
+    }
+
+    public function actionGetItem()
+    {
+        $item_id = Yii::app()->request->getPost('id');
+
+        $item = Utils::getItemInfo( $item_id );
+
+        $this->renderPartial('item', array('item_id'=>$item_id, 'price'=>$item['gold']['total'], 'description'=>$item['description']));
     }
 }
