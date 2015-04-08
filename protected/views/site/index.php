@@ -2,9 +2,7 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
-?>
 
-<?
 
 Yii::app()->CURL->options['timeout'] = 90;
 
@@ -32,17 +30,6 @@ echo '<br>';
 echo '<br>';
 echo '<br>';
 
-/*
- * TODO: maybe later js resize
- *
-function resize(img, w, h) {
-  var canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
-  canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-  return canvas;
-}
- * */
 $win_status = array( true => 'WIN', false => 'LOSE' );
 ?>
 <table>
