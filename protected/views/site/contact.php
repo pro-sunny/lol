@@ -7,13 +7,77 @@ $this->pageTitle=Yii::app()->name . ' - Contact Us';
 $this->breadcrumbs=array(
 	'Contact',
 );
+
+$this->widget('EToolTipster', array(
+    'target' => '.tooltip',
+    'options' => array(
+        'position'=>'right',
+        'content'=>'Loading',
+        'contentAsHTML'=>true,
+        'speed'=>0,
+        'fixedWidth'=>100,
+        'functionBefore'=>'js:function(origin, continueTooltip) {
+                continueTooltip();
+                id = origin.attr("id");
+
+                $.ajax({
+                    data: {id:id},
+                    type: "POST",
+                    url: "getContent",
+                    success: function(data) {
+                        origin.tooltipster("content", data);
+                    }
+                });
+            }'
+    )
+));
+
+//  origin.tooltipster("content", html);
+
+$this->renderPartial('spell', array('spell'=>array(
+    'image'=>'',
+    'name'=>'Tru dagame spell',
+    'cooldown'=>'10/20/30',
+    'cost'=>'10/20/30',
+    'range'=>'100500',
+    'tooltip'=>'deals a lot of domage'
+)))
+
 ?>
+
+<div style="display: none">
+    <div class="contenterino2">
+        <img alt="" src="/images/dragon_data/champion/Zed.png">
+        <br>4New content has been loaded LOADED HAHAHA4
+    </div>
+    <div class="contenterino2">
+        <img alt="" src="/images/dragon_data/champion/Zed.png">
+        <br>pls CRY!!!
+    </div>
+</div>
+
 
 <h1>Contact Us</h1>
 
+
+<a href="http://www.yiiframework.com" class="tooltip" id="Zed">
+    Some thing here
+</a>
+<br>
+<br>
+<a href="http://www.yiiframework.com" class="tooltip" id="Aatrox">
+    Some thing there
+</a>
+
+<div style="position: relative;width: 300px;height: 45px; overflow: hidden;">
+    <img alt="" src="/images/dragon_data/sprite/passive0.png" width="0" height="1" style="position: absolute; width: 48px; height: 48px; top:0; left: 0">
+</div>
+
+
+
 <?php if(Yii::app()->user->hasFlash('contact')): ?>
 
-<div class="flash-success">
+<div class="flash-success" title="some things here">
 	<?php echo Yii::app()->user->getFlash('contact'); ?>
 </div>
 

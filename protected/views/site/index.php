@@ -38,6 +38,33 @@ echo '<br>';
 echo '<br>';
 
 $win_status = array( true => 'WIN', false => 'LOSE' );
+
+$this->widget('EToolTipster', array(
+    'target' => '.tooltip',
+    'options' => array(
+        'position'=>'top',
+        'content'=>'Loading',
+        'contentAsHTML'=>true,
+        'speed'=>0,
+        'functionBefore'=>'js:function(origin, continueTooltip) {
+                continueTooltip();
+                var id = origin.attr("id");
+                var data = id.split("_");
+
+                console.log(data);
+
+                $.ajax({
+                    data: {champion_id:data[0], spell_id:data[1]},
+                    type: "POST",
+                    url: "site/getSpell",
+                    success: function(data) {
+                        origin.tooltipster("content", data);
+                    }
+                });
+            }'
+    )
+));
+
 ?>
 <table>
     <tr>
@@ -68,10 +95,14 @@ $win_status = array( true => 'WIN', false => 'LOSE' );
             <td><?= $summoner['highestAchievedSeasonTier']?></td>
             <td><?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?></td>
             <td>
-                <?
-
-                ?>
-                <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?>
+                <div class="left">
+                    <?= CHtml::image($spells['passive']['image']['full'], '', array('class'=>'tooltip', 'id'=>$summoner['championId'].'_passive'))?><br>
+                </div>
+                <? for( $i = 0; $i < 4; $i++ ){?>
+                    <div class="left">
+                        <?= CHtml::image($spells[$i]['image'], '', array('class'=>'tooltip', 'id'=>$summoner['championId'].'_'.$i))?><br>
+                    </div>
+                <? } ?>
             </td>
             <td><?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?></td>
             <td><?= $win_status[$summoner['stats']['winner']]?></td>

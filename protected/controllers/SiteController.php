@@ -106,4 +106,20 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+    public function actionGetContent(){
+        $id = Yii::app()->request->getPost('id');
+        echo 'THIS html <br> SO '.$id.'<img alt="" src="/images/dragon_data/champion/'.$id.'.png">';
+    }
+
+    public function actionGetSpell()
+    {
+        $champion_id = Yii::app()->request->getPost('champion_id');
+        $spell_id = Yii::app()->request->getPost('spell_id');
+
+        $spell = Utils::getChampionSpells( $champion_id );
+        $spell = $spell[$spell_id];
+
+        $this->renderPartial('spell', array('spell'=>$spell));
+    }
 }
