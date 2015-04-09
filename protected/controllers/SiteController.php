@@ -129,6 +129,6 @@ class SiteController extends Controller
 
         $item = Utils::getItemInfo( $item_id );
 
-        $this->renderPartial('item', array('item_id'=>$item_id, 'price'=>$item['gold']['total'], 'description'=>$item['description']));
+        $this->renderPartial('item', array('item_id'=>$item_id, 'name'=>$item['name'], 'price'=>$item['gold']['total'], 'description'=>$item['description']));
     }
 }

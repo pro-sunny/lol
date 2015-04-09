@@ -134,9 +134,9 @@ class Utils {
 
     public static function getItemInfo($item_id)
     {
-        $spell_info = self::$items_data['data'][$item_id];
+        $item_info = self::$items_data['data'][$item_id];
 
-        return $spell_info;
+        return $item_info;
     }
 
 } 
