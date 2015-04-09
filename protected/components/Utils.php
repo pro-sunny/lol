@@ -5,6 +5,7 @@ class Utils {
 
     public static $champions_data = array();
     public static $items_data = array();
+    public static $summoner_spells_data = array();
 
     public static function getChampionsData(){
         if( empty(self::$champions_data) ){
@@ -139,4 +140,26 @@ class Utils {
         return $item_info;
     }
 
-} 
+    public static function getSummonerSpell( $id )
+    {
+        // https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/4?spellData=image&api_key=7ab85dd4-4731-4422-b7d0-a9878e04dd7c
+        if (!empty(self::$summoner_spells_data[$id])) {
+            return self::$summoner_spells_data[$id];
+        } else {
+            $url = 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/'.$id.'?spellData=image&api_key='.Yii::app()->params['key'];
+            $response = Yii::app()->CURL->run($url);
+            $api_data = CJSON::decode($response);
+
+            $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/summoner.json');
+            $data = CJSON::decode($string);
+
+            $spell = $data['data'][$api_data['key']];
+
+            $image = Yii::app()->params['webRoot'].'/images/dragon_data/spell/'.$spell['image']['full'];
+
+            self::$summoner_spells_data[$id] = array('name'=>$spell['name'], 'description'=>$spell['description'], 'image'=>$image)  ;
+            return self::$summoner_spells_data[$id];
+        }
+
+    }
+}

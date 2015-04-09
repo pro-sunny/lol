@@ -131,4 +131,15 @@ class SiteController extends Controller
 
         $this->renderPartial('item', array('item_id'=>$item_id, 'name'=>$item['name'], 'price'=>$item['gold']['total'], 'description'=>$item['description']));
     }
+
+    public function actionGetSummonerSpell()
+    {
+        $spell_id = Yii::app()->request->getPost('spell_id');
+
+        $spell = Utils::getSummonerSpell( $spell_id );
+        $spell_id = 'passive';
+        $spell['tooltip'] = $spell['description'];
+
+        $this->renderPartial('spell', array('spell'=>$spell, 'spell_type'=>$spell_id, 'summoner'=>true));
+    }
 }
