@@ -15,6 +15,13 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
+    <?
+    $baseUrl = $this->assetsBase;
+    $cs = Yii::app()->getClientScript();
+    $cs->registerCoreScript('jquery.ui');
+    $cs->registerScriptFile($baseUrl.'/js/main.js');
+    ?>
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 

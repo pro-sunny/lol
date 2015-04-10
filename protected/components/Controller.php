@@ -5,6 +5,8 @@
  */
 class Controller extends CController
 {
+    private $_assetsBase;
+
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -27,5 +29,17 @@ class Controller extends CController
         Utils::getItemsData();
 
         return parent::beforeAction($action);
+    }
+
+    public function getAssetsBase(){
+        if ($this->_assetsBase === null) {
+            $this->_assetsBase = Yii::app()->assetManager->publish(
+                Yii::app()->basePath.'/assets',
+                false,
+                -1,
+                YII_DEBUG
+            );
+        }
+        return $this->_assetsBase;
     }
 }

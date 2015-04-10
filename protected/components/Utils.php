@@ -25,7 +25,7 @@ class Utils {
         return self::$items_data;
     }
 
-    public static function getChampionImage( $champion_id )
+    public static function getChampionImage($champion_id)
     {
         $champion_name = self::$champions_data['keys'][$champion_id];
 
@@ -66,6 +66,7 @@ class Utils {
 
         $data['passive'] = self::$champions_data['data'][$champion_name]['passive'];
         $data['passive']['tooltip'] = $data['passive']['description'];
+        $data['passive']['image'] = Yii::app()->params['webRoot'].'/images/dragon_data/passive/'.$data['passive']['image']['full'];
 
         return $data;
     }
