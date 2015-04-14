@@ -20,6 +20,17 @@ $response = Yii::app()->CURL->run($url);
 $data = CJSON::decode($response);
 
 $summoners = $data['participants'];
+$timeline = $data['timeline'];
+$events = array();
+foreach ($timeline['frames'] as $time) {
+    if( !empty($time['events']) ){
+        foreach ($time['events'] as $event) {
+            $events[$event['eventType']] = $event['eventType'];
+        }
+    }
+}
+
+CVarDumper::dump($events, 10 ,1);
 
 $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
 $data = CJSON::decode($string);
@@ -39,6 +50,10 @@ echo '<br>';
 echo '<br>';
 
 $win_status = array( true => 'WIN', false => 'LOSE' );
+
+if(Yii::app()->user->checkAccess('administrator')){
+    echo "hello, I'm administrator";
+}
 
 
 $this->widget('EToolTipster', array(
@@ -111,10 +126,13 @@ $this->widget('EToolTipster', array(
     .champion .main{ height: 80px}
     .champion .additional{ height: 40px}
     .champion.hover{ border: #FFD324 2px solid }
+
+    .spell, .item { width: 30px; }
 </style>
 
-<div class="champions_data">
-    <div class="left">
+<div class="section scrollspy" id="team">
+    <div class="container">
+        <div class="row">
         <?
         $i = 1;
         $class = 'left';
@@ -124,39 +142,71 @@ $this->widget('EToolTipster', array(
             $summonerSpell2 = Utils::getSummonerSpell( $summoner['spell2Id'] );
             ?>
 
-            <div class="champion">
-                <div class="main">
-                    <div class="icon <?= $class?>">
-                        <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ))?>
-                    </div>
-                    <div class="summoner_spells <?= $class?>">
-                        <?
-                        echo CHtml::image($summonerSpell1['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell1Id'] ));
-                        echo '<br>';
-                        echo CHtml::image($summonerSpell2['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell2Id'] ));
-                        ?>
-                    </div>
-                    <div class="kda <?= $class?>">
-                        <?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?>
-                    </div>
-                    <div class="items <?= $class?>">
-                        <div class="<?= $class?>">
-                            <div class="first_row">
-                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item0']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item0']))?>
-                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item1']))?>
-                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item2']))?>
-                            </div>
-                            <div class="second_row">
-                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item3']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item3']))?>
-                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item4']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item4']))?>
-                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item5']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item5']))?>
-                            </div>
-                        </div>
 
-                        <div class="trinket <?= $class?>">
-                            <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item6']))?>
+                <div class="col s12 m3">
+                    <div class="card card-avatar">
+                        <div class="waves-effect waves-block waves-light">
+                            <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
+                        </div>
+                        <div class="card-content">
+                            <div>
+                                <?
+                                echo CHtml::image($spells['passive']['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_passive'))
+                                ?><br>
+                            </div>
+
+                            <div>
+                            <? for( $j = 0; $j < 4; $j++ ){?>
+                                <?= CHtml::image($spells[$j]['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_'.$j))?>
+                            <? } ?>
+                            </div>
+
+                            <?
+                            echo CHtml::image($summonerSpell1['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell1Id'] ));
+                            echo CHtml::image($summonerSpell2['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell2Id'] ));
+                            ?>
+                            <br>
+                            <span class="card-title activator grey-text text-darken-4">
+                                <?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?><br/>
+                                <small><em><a class="red-text text-darken-1" href="#">Developer</a></em></small>
+                            </span>
+                            <p>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item0']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item0']))?>
+                                </a>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item1']))?>
+                                </a>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item2']))?>
+                                </a>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item3']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item3']))?>
+                                </a>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item4']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item4']))?>
+                                </a>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item5']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item5']))?>
+                                </a>
+                                <a href="#">
+                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item6']))?>
+                                </a>
+                            </p>
                         </div>
                     </div>
+                </div>
+
+
+
+
+        <?
+
+
+            /*
+             *
+             * <div class="champion">
+                <div class="main">
                     <div class="cs <?= $class?>">
                         <?= $summoner['stats']['minionsKilled']?>
                     </div>
@@ -169,17 +219,6 @@ $this->widget('EToolTipster', array(
                 </div>
                 <div class="additional">
                     <div class="<?= $class?>">
-                        <?
-                        echo CHtml::image($spells['passive']['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_passive'))
-                        ?><br>
-                    </div>
-
-                    <? for( $j = 0; $j < 4; $j++ ){?>
-                        <div class="<?= $class?>">
-                            <?= CHtml::image($spells[$j]['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_'.$j))?><br>
-                        </div>
-                    <? } ?>
-                    <div class="<?= $class?>">
                         &nbsp;<?= $win_status[$summoner['stats']['winner']]?>&nbsp;
                     </div>
                     <div class="<?= $class?>">
@@ -191,12 +230,12 @@ $this->widget('EToolTipster', array(
                 </div>
 
             </div>
-        <?  if( $i == 5 ){
-                echo '</div><div class="right">';
-                $class = 'right';
-            }
+             *
+             * */
+
             $i++;
         } ?>
+    </div>
     </div>
 
 
