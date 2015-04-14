@@ -30,24 +30,21 @@ foreach ($timeline['frames'] as $time) {
     }
 }
 
-CVarDumper::dump($events, 10 ,1);
+// CVarDumper::dump($events, 10 ,1);
 
 $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
 $data = CJSON::decode($string);
 // $data = json_decode($string, true);
-echo '<pre>';
+// echo '<pre>';
 // print_r($data);
-echo '</pre>';
+// echo '</pre>';
 
-echo 'xto vugrav';
+// echo 'xto vugrav';
 
-echo '<br>';
-echo '<br>';
 
 //CVarDumper::dump($data, 10, 1);
 
-echo '<br>';
-echo '<br>';
+
 
 $win_status = array( true => 'WIN', false => 'LOSE' );
 
@@ -110,9 +107,7 @@ $this->widget('EToolTipster', array(
 ?>
 
 <style>
-    .champion{ width: 500px; height: 130px; border: #ffffff 2px solid }
-    .icon{ width: 80px }
-    .icon img{width: 76px; padding: 2px}
+    .champion .icon{ width: 80px; overflow: hidden; }
     .summoner_spells{ width: 30px }
     .summoner_spells img, .additional img{ width:28px; padding: 2px }
     .kda{ width: 50px }
@@ -126,16 +121,31 @@ $this->widget('EToolTipster', array(
     .champion .main{ height: 80px}
     .champion .additional{ height: 40px}
     .champion.hover{ border: #FFD324 2px solid }
-
-    .spell, .item { width: 30px; }
+    .champion.selected .card{
+        margin-top: 5px;
+        -webkit-box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12)
+    }
+    .champion .blue_team{background: #f5fafe}
+    .champion .red_team{background: #fff3f3}
 </style>
 
+<script>
+    $(function(){
+        $('.champion').click(function(){
+            $('.champion.selected').removeClass('selected');
+            $(this).addClass('selected');
+        });
+    })
+</script>
+
 <div class="section scrollspy" id="team">
-    <div class="container">
+    <div class="container" style="text-align: center">
         <div class="row">
         <?
         $i = 1;
         $class = 'left';
+        $row_class = 'blue_team';
         foreach ($summoners as $summoner) {
             $spells = Utils::getChampionSpells($summoner['championId']);
             $summonerSpell1 = Utils::getSummonerSpell( $summoner['spell1Id'] );
@@ -143,20 +153,18 @@ $this->widget('EToolTipster', array(
             ?>
 
 
-                <div class="col s12 m3">
-                    <div class="card card-avatar">
+                <div class="col s12 m3 champion" id="<?= $summoner['participantId']?>">
+                    <div class="card card-avatar waves-effect waves-block waves-light <?= $row_class?>">
                         <div class="waves-effect waves-block waves-light">
-                            <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
+                                <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
+                            <div class="icon">
+                            </div>
                         </div>
                         <div class="card-content">
                             <div>
-                                <?
-                                echo CHtml::image($spells['passive']['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_passive'))
-                                ?><br>
-                            </div>
-
-                            <div>
-                            <? for( $j = 0; $j < 4; $j++ ){?>
+                            <?
+                            echo CHtml::image($spells['passive']['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_passive'));
+                            for( $j = 0; $j < 4; $j++ ){?>
                                 <?= CHtml::image($spells[$j]['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_'.$j))?>
                             <? } ?>
                             </div>
@@ -167,76 +175,58 @@ $this->widget('EToolTipster', array(
                             ?>
                             <br>
                             <span class="card-title activator grey-text text-darken-4">
-                                <?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?><br/>
-                                <small><em><a class="red-text text-darken-1" href="#">Developer</a></em></small>
+                                <em><?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?><br/></em>
                             </span>
                             <p>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item0']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item0']))?>
-                                </a>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item1']))?>
-                                </a>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item2']))?>
-                                </a>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item3']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item3']))?>
-                                </a>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item4']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item4']))?>
-                                </a>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item5']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item5']))?>
-                                </a>
-                                <a href="#">
-                                    <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item6']))?>
-                                </a>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item0']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item0']))?>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item1']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item1']))?>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item2']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item2']))?>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item3']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item3']))?>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item4']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item4']))?>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item5']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item5']))?>
+                                <?= CHtml::image(Utils::getItemImagePath($summoner['stats']['item6']), '', array('class'=>'tooltip item', 'id'=>$summoner['stats']['item6']))?>
                             </p>
                         </div>
                     </div>
                 </div>
-
-
-
-
-        <?
-
-
-            /*
-             *
-             * <div class="champion">
-                <div class="main">
-                    <div class="cs <?= $class?>">
-                        <?= $summoner['stats']['minionsKilled']?>
+            <?
+                /*
+                 *
+                 * <div class="champion">
+                    <div class="main">
+                        <div class="cs <?= $class?>">
+                            <?= $summoner['stats']['minionsKilled']?>
+                        </div>
+                        <div class="gold <?= $class?>">
+                            <?= $summoner['stats']['goldEarned']?>
+                        </div>
+                        <div class="<?= $class?>">
+                            <?= $summoner['highestAchievedSeasonTier']?>
+                        </div>
                     </div>
-                    <div class="gold <?= $class?>">
-                        <?= $summoner['stats']['goldEarned']?>
+                    <div class="additional">
+                        <div class="<?= $class?>">
+                            &nbsp;<?= $win_status[$summoner['stats']['winner']]?>&nbsp;
+                        </div>
+                        <div class="<?= $class?>">
+                            &nbsp;<?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;
+                        </div>
+                        <div class="<?= $class?>">
+                            <?= $summoner['stats']['totalDamageTaken']?>
+                        </div>
                     </div>
-                    <div class="<?= $class?>">
-                        <?= $summoner['highestAchievedSeasonTier']?>
-                    </div>
+
                 </div>
-                <div class="additional">
-                    <div class="<?= $class?>">
-                        &nbsp;<?= $win_status[$summoner['stats']['winner']]?>&nbsp;
-                    </div>
-                    <div class="<?= $class?>">
-                        &nbsp;<?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;
-                    </div>
-                    <div class="<?= $class?>">
-                        <?= $summoner['stats']['totalDamageTaken']?>
-                    </div>
-                </div>
+                 *
+                 * */
+                if ($i == 5) {
+                    $row_class = 'red_team';
+                    echo '<div class="row"></div>';
+                }
+                $i++;
+            } ?>
+        </div>
 
-            </div>
-             *
-             * */
-
-            $i++;
-        } ?>
+        <a href="#" id="download-button" class="btn-large waves-effect waves-light amber darken-3">Lock In</a>
     </div>
-    </div>
-
-
 </div>

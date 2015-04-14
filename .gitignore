@@ -1,5 +1,4 @@
 .idea/
-assets/
 protected/runtime
 protected/cache
 protected/config/key.php
