@@ -110,7 +110,7 @@ $this->widget('EToolTipster', array(
 ?>
 
 <style>
-    .champion .icon{ width: 80px; overflow: hidden; }
+    .champion .icon img{ width: 96px; }
     .summoner_spells{ width: 30px }
     .summoner_spells img, .additional img{ width:28px; padding: 2px }
     .kda{ width: 50px }
@@ -121,9 +121,6 @@ $this->widget('EToolTipster', array(
     .gold{ width: 50px }
     .trinket{margin: 19px 0 0 2px;}
 
-    .champion .main{ height: 80px}
-    .champion .additional{ height: 40px}
-    .champion.hover{ border: #FFD324 2px solid }
     .champion.selected .card{
         margin-top: 5px;
         /*-webkit-box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12);
@@ -162,7 +159,7 @@ $this->widget('EToolTipster', array(
 
                 <div class="col s12 m3 champion" id="<?= $summoner['participantId']?>">
                     <div class="card card-avatar waves-effect waves-light <?= $row_class?>">
-                        <div>
+                        <div class="icon">
                             <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
                         </div>
                         <div class="card-content">

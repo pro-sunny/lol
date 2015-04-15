@@ -30,7 +30,7 @@
     $cs->registerCoreScript('jquery.ui');
     // $cs->registerScriptFile($baseUrl.'/js/main.js');
     $cs->registerScriptFile($baseUrl.'/js/modernizr.js');
-    $cs->registerScriptFile($baseUrl.'/js/materialize.js', CClientScript::POS_END);
+    $cs->registerScriptFile($baseUrl.'/js/materialize.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($baseUrl.'/js/init.js', CClientScript::POS_END);
     ?>
 
