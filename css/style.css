@@ -265,3 +265,5 @@ nav a.button-collapse {
 footer.page-footer {
     margin-top: 0px !important;
 }
+
+.errorMessage{ color: #ff0000 }

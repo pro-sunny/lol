@@ -51,6 +51,9 @@ $win_status = array( true => 'WIN', false => 'LOSE' );
 if(Yii::app()->user->checkAccess('administrator')){
     echo "hello, I'm administrator";
 }
+if(Yii::app()->user->checkAccess('user')){
+    echo "THE USER IS HERE!!!";
+}
 
 
 $this->widget('EToolTipster', array(
@@ -123,8 +126,8 @@ $this->widget('EToolTipster', array(
     .champion.hover{ border: #FFD324 2px solid }
     .champion.selected .card{
         margin-top: 5px;
-        -webkit-box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12);
-        box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12)
+        /*-webkit-box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12)*/
     }
     .champion .blue_team{background: #f5fafe}
     .champion .red_team{background: #fff3f3}
@@ -133,14 +136,18 @@ $this->widget('EToolTipster', array(
 <script>
     $(function(){
         $('.champion').click(function(){
+            $('.champion').each(function(){
+                $(this).find('.card').removeClass('z-depth-4');
+            });
             $('.champion.selected').removeClass('selected');
+
             $(this).addClass('selected');
+            $(this).find('.card').addClass('z-depth-4');
         });
     })
 </script>
 
-<div class="section scrollspy" id="team">
-    <div class="container" style="text-align: center">
+
         <div class="row">
         <?
         $i = 1;
@@ -154,11 +161,9 @@ $this->widget('EToolTipster', array(
 
 
                 <div class="col s12 m3 champion" id="<?= $summoner['participantId']?>">
-                    <div class="card card-avatar waves-effect waves-block waves-light <?= $row_class?>">
-                        <div class="waves-effect waves-block waves-light">
-                                <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
-                            <div class="icon">
-                            </div>
+                    <div class="card card-avatar waves-effect waves-light <?= $row_class?>">
+                        <div>
+                            <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
                         </div>
                         <div class="card-content">
                             <div>
@@ -228,5 +233,4 @@ $this->widget('EToolTipster', array(
         </div>
 
         <a href="#" id="download-button" class="btn-large waves-effect waves-light amber darken-3">Lock In</a>
-    </div>
-</div>
+

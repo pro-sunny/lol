@@ -142,4 +142,33 @@ class SiteController extends Controller
 
         $this->renderPartial('spell', array('spell'=>$spell, 'spell_type'=>$spell_id, 'summoner'=>true));
     }
+
+    public function actionRegister()
+    {
+        $model = new User();
+
+        if(isset($_POST['ajax'])) {
+            if ($_POST['ajax'] == 'registration_form') {
+                $model = new User('register');
+                $model->attributes = $_POST['User'];
+                echo CActiveForm::validate($model);
+            }
+            Yii::app()->end();
+        }
+
+        if( isset($_POST['User']) ){
+            $model->attributes = $_POST['User'];
+            $password = $model->password;
+            $model->role = 'user';
+            $model->save();
+
+            $identity = new UserIdentity($model->login,$password);
+            $identity->authenticate();
+            Yii::app()->user->login($identity);
+
+            $this->redirect('/');
+        }
+
+        $this->render('register', array('model'=>$model));
+    }
 }
