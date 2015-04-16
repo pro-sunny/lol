@@ -38,12 +38,14 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
             'class' => 'WebUser',
+            'loginUrl'=>array('site/login'),
 		),
 		// uncomment the following to enable URLs in path-format
 
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
+				'match'=>'match/index',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

@@ -8,63 +8,102 @@ $this->breadcrumbs=array(
 	'Contact',
 );
 
-$this->widget('EToolTipster', array(
-    'target' => '.tooltip',
-    'options' => array(
-        'position'=>'right',
-        'content'=>'Loading',
-        'contentAsHTML'=>true,
-        'speed'=>0,
-        'fixedWidth'=>100,
-        'functionBefore'=>'js:function(origin, continueTooltip) {
-                continueTooltip();
-                id = origin.attr("id");
 
-                $.ajax({
-                    data: {id:id},
-                    type: "POST",
-                    url: "getContent",
-                    success: function(data) {
-                        origin.tooltipster("content", data);
-                    }
-                });
-            }'
-    )
-));
+$string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/map.json');
+$data = CJSON::decode($string);
+// $data = json_decode($string, true);
 
-//  origin.tooltipster("content", html);
+// $forbidden_items = $data['data'][10]['UnpurchasableItemList'];
+$forbidden_items = $data['data'][1]['UnpurchasableItemList'];
+
+//additional items to remove
+$forbidden_items[] = '2139';
+$forbidden_items[] = '3084';
+$forbidden_items[] = '3187';
+$forbidden_items[] = '3104';
+$forbidden_items[] = '3159';
+$forbidden_items[] = '3181';
+$forbidden_items[] = '3185';
+$forbidden_items[] = '3504';
+$forbidden_items[] = '3090';
+$forbidden_items[] = '3170';
+$forbidden_items[] = '3137';
+
+$string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/item.json');
+$data = CJSON::decode($string);
+// $data = json_decode($string, true);
+
+$tags = array();
+$items_by_type = array();
+
+$item_types = array(
+    'defence'=>array('Armor' => 'Armor', 'Health' => 'Health', 'HealthRegen' => 'Health Regen', 'SpellBlock' => 'Magic Resist'),
+    'attack'=>array('AttackSpeed'=>'Attack Speed', 'CriticalStrike'=>'Critical Strike', 'Damage'=>'Damage', 'LifeSteal'=>'Life Steal'),
+    'magic'=>array('CooldownReduction'=>'Cooldown Reduction', 'Mana'=>'Mana', 'ManaRegen'=>'Mana Regen', 'SpellDamage'=>'Ability Power'),
+    'movement'=>array('Boots'=>'Boots', 'NonbootsMovement'=>'Other Movement')
+);
+
+$types = array(
+    'Armor'=>'defence', 'Health'=>'defence', 'HealthRegen'=>'defence', 'SpellBlock'=>'defence',
+    'AttackSpeed'=>'attack', 'CriticalStrike'=>'attack', 'Damage'=>'attack', 'LifeSteal'=>'attack',
+    'CooldownReduction'=>'magic', 'Mana'=>'magic', 'ManaRegen'=>'magic', 'SpellDamage'=>'magic',
+    'Boots'=>'movement', 'NonbootsMovement'=>'movement',
+);
+
+$items = $data['data'];
+foreach ($items as $id => $item) {
+    if( in_array('Lane', $item['tags']) || in_array('Consumable', $item['tags']) ){
+        continue;
+    }
+    foreach ($item['tags'] as $tag) {
+        $count[$tag] = !empty($count[$tag]) ? ++$count[$tag] : 1;
+        $tags[$tag] = $tag.' '.$count[$tag];
+        if( empty($item['into']) && !empty($types[$tag]) && !in_array($id, $forbidden_items) ){
+            $items_by_type[$types[$tag]][$id] = $item['gold']['total'];
+        }
+    }
+}
+
+
+
+// Doran's Shield
+// Showdown
+// Guardian's Horn
+// Enchantment: Cinderhulk
+
+//echo '<pre style="text-align: left">';
+//print_r($items);
+//echo '</pre>';
 
 
 ?>
 
-<div style="display: none">
-    <div class="contenterino2">
-        <img alt="" src="/images/dragon_data/champion/Zed.png">
-        <br>4New content has been loaded LOADED HAHAHA4
-    </div>
-    <div class="contenterino2">
-        <img alt="" src="/images/dragon_data/champion/Zed.png">
-        <br>pls CRY!!!
-    </div>
-</div>
-
-
 <h1>Contact Us</h1>
 
 
-<a href="http://www.yiiframework.com" class="tooltip" id="Zed">
-    Some thing here
-</a>
-<br>
-<br>
-<a href="http://www.yiiframework.com" class="tooltip" id="Aatrox">
-    Some thing there
-</a>
-
-<div>
-    <img alt="" src="" style="width: 48px; height: 48px; background: url(/images/dragon_data/sprite/passive0.png) -48px 0;">
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#defence">Defence</a></li>
+            <li class="tab col s3"><a href="#attack">Attack</a></li>
+            <li class="tab col s3"><a href="#magic">Magic</a></li>
+            <li class="tab col s3"><a href="#movement">Movement</a></li>
+        </ul>
+    </div>
+    <br>
+    <div class="items">
+        <?
+        foreach ($items_by_type as $type => $items) {
+            arsort($items);
+            echo '<div id="'.$type.'" class="col s12">';
+            foreach ($items as $id => $item) {
+                echo CHtml::image(Utils::getItemImagePath($id), '', array('class'=>'item', 'id'=>$id));
+            }
+            echo '</div>';
+        }
+        ?>
+    </div>
 </div>
-
 
 <?php if(Yii::app()->user->hasFlash('contact')): ?>
 
