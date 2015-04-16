@@ -11,6 +11,9 @@ $form = $this->beginWidget('CActiveForm', array(
     ),
 ));
 ?>
+
+<h1 class="blue-text">Registration</h1>
+
 <div class="col l6 s12">
     <div class="row" style="height: 80px">
         <div class="input-field col s6">

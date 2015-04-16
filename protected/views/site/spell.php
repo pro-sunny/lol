@@ -1,4 +1,4 @@
-<div class="spell">
+<div class="spell_container">
     <div class="spell_head">
         <div class="left spell_image">
             <? echo CHtml::image($spell['image']); ?>

@@ -102,5 +102,8 @@ return array(
         'dragonImagePath' =>'5.7.2',
         'webRoot' => YiiBase::getPathOfAlias('webroot'),
         'key' => require(dirname(__FILE__) . '/key.php'),
+        'regions' => array('na', 'eune', 'euw', 'kr', 'lan', 'las', 'oce', 'ru', 'tr'),
+        'question_types' => array('highest_damage_dealt', 'lowest_damage_dealt', 'highest_damage_taken', 'lowest_damage_taken')
+        // 'main_regions' => array('na', 'eune', 'euw', 'kr', 'ru')
 	),
 );

@@ -8,19 +8,23 @@ class Utils {
     public static $summoner_spells_data = array();
 
     public static function getChampionsData(){
+        self::$champions_data = Yii::app()->user->getState('champions_data');
         if( empty(self::$champions_data) ){
             $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/championFull.json');
             $data = CJSON::decode($string);
             self::$champions_data = $data;
+            Yii::app()->user->setState('champions_data', $data);
         }
         return self::$champions_data;
     }
 
     public static function getItemsData(){
+        self::$items_data = Yii::app()->user->getState('items_data');
         if( empty(self::$items_data) ){
             $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/item.json');
             $data = CJSON::decode($string);
             self::$items_data = $data;
+            Yii::app()->user->setState('items_data', $data);
         }
         return self::$items_data;
     }
@@ -147,6 +151,8 @@ class Utils {
         if (!empty(self::$summoner_spells_data[$id])) {
             return self::$summoner_spells_data[$id];
         } else {
+
+            // TODO: THIS HAS TO BE REDONE NOW!!!!
             $url = 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/'.$id.'?spellData=image&api_key='.Yii::app()->params['key'];
             $response = Yii::app()->CURL->run($url);
             $api_data = CJSON::decode($response);

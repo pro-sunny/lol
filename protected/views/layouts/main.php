@@ -82,7 +82,7 @@
             </div>
             <div class="row center">
                 <? if( Yii::app()->user->isGuest ){
-                    echo CHtml::link('Log In', 'site/registration', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
+                    echo CHtml::link('Log In', '/site/register', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
                 } else {
                     echo CHtml::link('Fight', '/match', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
                 }
