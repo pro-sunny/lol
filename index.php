@@ -1,5 +1,8 @@
 <?php
-set_time_limit(300);
+// working example is at http://urfleague.zz.mu/
+
+
+
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/framework/YiiBase.php';
 $config=dirname(__FILE__).'/protected/config/main.php';
@@ -24,3 +27,4 @@ class Yii extends YiiBase
 }
 
 Yii::createWebApplication($config)->run();
+// working example is at http://urfleague.zz.mu/

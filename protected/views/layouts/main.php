@@ -138,6 +138,8 @@
             Inspired By <a class="white-text" href="https://developer.riotgames.com/discussion/riot-games-api/show/bX8Z86bm">RIOT API Challenge</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Developed By <a class="white-text" href="https://github.com/pro-sunny">ProSunny</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Working example is at <a class="white-text" href="http://urfleague.zz.mu/">http://urfleague.zz.mu/</a>
         </div>
     </div>
 </footer>
