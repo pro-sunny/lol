@@ -51,7 +51,7 @@ class User extends CActiveRecord {
     }
 
     public function tableName(){
-        return 'User';
+        return 'user';
     }
 
     protected function beforeSave(){
