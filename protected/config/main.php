@@ -103,7 +103,13 @@ return array(
         'webRoot' => YiiBase::getPathOfAlias('webroot'),
         'key' => require(dirname(__FILE__) . '/key.php'),
         'regions' => array('na', 'eune', 'euw', 'kr', 'lan', 'las', 'oce', 'ru', 'tr'),
-        'question_types' => array('highest_damage_dealt', 'lowest_damage_dealt', 'highest_damage_taken', 'lowest_damage_taken')
+        'question_types' => array(
+            'highest_damage_dealt' => 'Who dealt the most damage to champions?',
+            'lowest_damage_dealt' => 'Who dealt the less damage to champions?',
+            'highest_damage_taken' => 'Who has taken the most damage?',
+            'lowest_damage_taken' => 'Who has taken the less damage?'
+        ),
+        'ranks' => array(1=>'bronze', 2=>'silver', 3=>'gold', 4=>'platinum', 5=>'diamond', 6=>'challenger'),
         // 'main_regions' => array('na', 'eune', 'euw', 'kr', 'ru')
 	),
 );

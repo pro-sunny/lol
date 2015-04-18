@@ -20,6 +20,7 @@
 
 $summoners = Yii::app()->db->createCommand()->select('participants')->from('match')->where('id=:id', array('id'=>$match_id))->queryScalar();
 $summoners = CJSON::decode($summoners);
+
 // $summoners = $data['participants'];
 // $timeline = $data['timeline'];
 
@@ -91,6 +92,7 @@ $this->widget('EToolTipster', array(
 ?>
 <style>
     .champion .icon img{ width: 96px; }
+    .champion .icon { width: 96px; margin: 0 auto}
     .summoner_spells{ width: 30px }
     .summoner_spells img, .additional img{ width:28px; padding: 2px }
     .kda{ width: 50px }
@@ -109,9 +111,18 @@ $this->widget('EToolTipster', array(
     .champion .blue_team{background: #f5fafe}
     .champion .red_team{background: #fff3f3}
     .champion.disabled .card{ background: #cccccc; cursor: default }
+
+    .level{
+        position: absolute;
+        left: 44px;
+        top: 80px;
+        color: #ffffff;
+        font-weight: bold;
+    }
 </style>
 
 <script>
+    console.log(<?= $match_id?>);
     $(function(){
         $('.champion').click(function(){
             if ($(this).hasClass('disabled')) {
@@ -128,6 +139,10 @@ $this->widget('EToolTipster', array(
 
         $('.lock_in').click(function(){
 
+            if( !$('.champion.selected').length ){
+                return false;
+            }
+
             var id = $('.champion.selected').attr('id');
 
             $('.champion').each(function(){
@@ -137,8 +152,23 @@ $this->widget('EToolTipster', array(
             });
 
             $.post('match/checkAnswer', {id:id}, function(data){
-                console.log(data);
-            });
+                var counter = 4;
+                var i = setInterval(function(){
+                    $('.rank').html(counter - 1).show();
+                    counter--;
+                    if(counter === 0) {
+                        clearInterval(i);
+
+                        $('.lock_in').hide();
+                        $('.next_fight').show();
+                        $('.rank').html(data.rank);
+                        $('.status_'+data.status).show();
+                        $('.message').html('<em>'+data.message+'</em>');
+                    }
+                }, 1000);
+
+
+            }, 'json');
             return false;
         })
     })
@@ -150,14 +180,56 @@ $this->widget('EToolTipster', array(
     $i = 1;
     $class = 'left';
     $row_class = 'blue_team';
+
     foreach ($summoners as $summoner) {
         $spells = Utils::getChampionSpells($summoner['championId']);
         $summonerSpell1 = Utils::getSummonerSpell( $summoner['spell1Id'] );
         $summonerSpell2 = Utils::getSummonerSpell( $summoner['spell2Id'] );
+
+        $item_ids = array(0=>$summoner['stats']['item0'], 1=>$summoner['stats']['item1'], 2=>$summoner['stats']['item2'], 3=>$summoner['stats']['item3'], 4=>$summoner['stats']['item4'], 5=>$summoner['stats']['item5'], )
         ?>
 
 
+        <div class="col s12 m3 champion" id="<?= $summoner['participantId']?>">
+            <div class="card card-avatar waves-effect waves-light <?= $row_class?>">
+                <div class="icon" style="position: relative">
+                    <?= CHtml::image(Utils::getChampionImage( $summoner['championId'] ), '', array('class'=>'activator'))?>
+                    <div class="level"><?= $summoner['stats']['champLevel']?></div>
+                </div>
+                <div class="card-content" style="min-width: 135px">
+                    <div>
+                        <?
+                        echo CHtml::image($spells['passive']['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_passive'));
+                        for( $j = 0; $j < 4; $j++ ){?>
+                            <?= CHtml::image($spells[$j]['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_'.$j))?>
+                        <? } ?>
+                    </div>
 
+                    <?
+                    echo CHtml::image($summonerSpell1['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell1Id'] ));
+                    echo CHtml::image($summonerSpell2['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell2Id'] ));
+                    ?>
+                    <br>
+                    <span class="card-title activator grey-text text-darken-4">
+                        <em><?= $summoner['stats']['kills'].'/'.$summoner['stats']['deaths'].'/'.$summoner['stats']['assists']?><br/></em>
+                    </span>
+                    <p>
+                        <?= CHtml::image(Utils::getItemImagePath($item_ids[0]), '', array('class'=>($item_ids[0]?'tooltip':'').' item', 'id'=>$item_ids[0]))?>
+                        <?= CHtml::image(Utils::getItemImagePath($item_ids[1]), '', array('class'=>($item_ids[1]?'tooltip':'').' item', 'id'=>$item_ids[1]))?>
+                        <?= CHtml::image(Utils::getItemImagePath($item_ids[2]), '', array('class'=>($item_ids[2]?'tooltip':'').' item', 'id'=>$item_ids[2]))?>
+                        <br>
+                        <?= CHtml::image(Utils::getItemImagePath($item_ids[3]), '', array('class'=>($item_ids[3]?'tooltip':'').' item', 'id'=>$item_ids[3]))?>
+                        <?= CHtml::image(Utils::getItemImagePath($item_ids[4]), '', array('class'=>($item_ids[4]?'tooltip':'').' item', 'id'=>$item_ids[4]))?>
+                        <?= CHtml::image(Utils::getItemImagePath($item_ids[5]), '', array('class'=>($item_ids[5]?'tooltip':'').' item', 'id'=>$item_ids[5]))?>
+                    </p>
+
+                    &nbsp;<?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;<br>
+                    <?= $summoner['stats']['totalDamageTaken']?>
+
+
+                </div>
+            </div>
+        </div>
         <?
         /*
          *
@@ -192,8 +264,16 @@ $this->widget('EToolTipster', array(
             $row_class = 'red_team'; ?>
             <br clear="all">
             <div class="row">
-                <h5 class="header col s12 light">Who dealt the most damage to champions?</h5>
-                <a href="#" id="download-button" class="lock_in btn-large waves-effect waves-light amber darken-3">Lock In</a>
+                <div class="status_win" style="display:none;">
+                    <h1 class="header center green-text accent-4">Victory</h1>
+                </div>
+                <div class="status_lose" style="display:none;">
+                    <h1 class="header center red-text">Second Place</h1>
+                </div>
+                <p class="rank" style="font-weight: bold; margin: 0; height: 15px"></p>
+                <h5 class="header col s12 light message"><?= $question?></h5>
+                <a href="#" class="lock_in btn-large waves-effect waves-light amber darken-3">Lock In</a>
+                <a class="next_fight btn-large waves-effect waves-light light-blue accent-3" href="/match" style="display: none">Fight</a>
             </div>
         <?
         }

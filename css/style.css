@@ -13,7 +13,7 @@
     padding: 0 15px;
 }
 
-#intro, #work, #team {padding-top: 4rem;}
+/* #intro, #work, #team {padding-top: 4rem;} */
 
 
 #index-banner {
@@ -46,7 +46,7 @@
     letter-spacing: 7px;
 }
 
-.text_h2 {font-weight: 100;margin-bottom: 4%; line-height: 4.5rem;}
+.text_h2 {font-weight: 100;margin-bottom: 4%; line-height: 4.5rem;   font-family: "Roboto", sans-serif;}
 
 .span_h2 {font-weight: 300;color: #2196F3;}
 
@@ -282,3 +282,33 @@ footer.page-footer {
 }
 
 .errorMessage{ color: #ff0000 }
+
+.pagination li {
+    font-size: 1.2rem;
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    border-radius: 2px;
+    text-align: center; }
+.pagination li a {
+    color: #444; }
+.pagination li.active a {
+    color: #fff; }
+.pagination li.active {
+    background-color: #ee6e73; }
+.pagination li.disabled a {
+    color: #999; }
+.pagination li i {
+    font-size: 2rem;
+    line-height: 1.8rem; }
+
+.item_container{width: 300px;}
+.item_container .item_image img{margin: 0 5px 5px 0}
+.item_container .item_price{color:#fbc02d }
+.item_container .item_name{font-size: 17px}
+
+.spell_container{width: 300px;}
+.spell_container .spell_image img{margin: 0 5px 5px 0}
+.spell_container .spell_name{font-size: 17px; line-height: 30px}
+.spell_container .number{color:#00e676;}

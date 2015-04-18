@@ -54,6 +54,12 @@ class Utils {
 
     }
 
+    public static function getRankImagePath( $rank )
+    {
+        return Yii::app()->params['webRoot'].'/images/dragon_data/tier/'.$rank.'.png';
+
+    }
+
     public static function getChampionSpells($champion_id)
     {
         $data = array();
@@ -89,7 +95,10 @@ class Utils {
             $vartype = substr($effect,3,1);
             //echo $effect.": ".substr($effect,3,1)."<br>";
             if($vartype=='e'){
-                $replace = $spell['effectBurn'][substr($effect,4,1)];
+                if( !empty($spell['effectBurn'][substr($effect,4,1)]) ){
+                    $replace = $spell['effectBurn'][substr($effect,4,1)];
+                }
+
             }
             if($vartype=='a'){
                 foreach($spell['vars'] as $vkey=>$v){
@@ -145,22 +154,35 @@ class Utils {
         return $item_info;
     }
 
+    public static function getSummonerSpellName( $id ){
+        $spells = array(
+            1 => 'SummonerBoost',
+            2 => 'SummonerClairvoyance',
+            3 => 'SummonerExhaust',
+            4 => 'SummonerFlash',
+            6 => 'SummonerHaste',
+            7 => 'SummonerHeal',
+            11 => 'SummonerSmite',
+            12 => 'SummonerTeleport',
+            13 => 'SummonerMana',
+            14 => 'SummonerDot',
+            21 => 'SummonerBarrier',
+        );
+        return $spells[$id];
+    }
+
     public static function getSummonerSpell( $id )
     {
         // https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/4?spellData=image&api_key=7ab85dd4-4731-4422-b7d0-a9878e04dd7c
         if (!empty(self::$summoner_spells_data[$id])) {
             return self::$summoner_spells_data[$id];
         } else {
-
-            // TODO: THIS HAS TO BE REDONE NOW!!!!
-            $url = 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/'.$id.'?spellData=image&api_key='.Yii::app()->params['key'];
-            $response = Yii::app()->CURL->run($url);
-            $api_data = CJSON::decode($response);
+            $name = self::getSummonerSpellName($id);
 
             $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/summoner.json');
             $data = CJSON::decode($string);
 
-            $spell = $data['data'][$api_data['key']];
+            $spell = $data['data'][$name];
 
             $image = Yii::app()->params['webRoot'].'/images/dragon_data/spell/'.$spell['image']['full'];
 
@@ -168,5 +190,59 @@ class Utils {
             return self::$summoner_spells_data[$id];
         }
 
+    }
+
+    public static function getWinLoseMessage( $type )
+    {
+        $messages = array(
+            'win'=>array(
+                "I can't say, 'It doesn't matter if you win or lose.' It's not true. You go in to win.",
+                "Win or RITO, do it fairly.",
+                "I love the winning, I can take the second place, but most of all I Love to play.",
+                "You have won now, but the URF is not over yet",
+                "Losing is not in my vocabulary.",
+                "Winners never leave and leavers never win.",
+                "What does it take to be a champion? URF, sleep, eat, repeat!",
+                "There is no 'i' in team but there is in win. Kappa",
+                "If you take no risks, you will suffer no defeats. But if you take no risks, you win no victories.",
+                "You win by working hard, making tough decisions and picking teemo!.",
+                "Only win matters, not the fail flashes.",
+                "One should always play fairly when one has the winning champions.",
+                "Challengers win by choice, not by accident.",
+                "You rarely win, but sometimes you do. Kappa",
+                "You have won. GJ",
+                "Sorry, no second places left for you",
+                "GG WP",
+                "When you win, say GG. When you lose, say GG.",
+                "The true competitors, though, are the ones who always play to win."
+            ),
+            'lose'=>array(
+                'Yesterday is not ours to recover, but tomorrow is ours to win or second place.',
+                'No matter if you win or lose, the most important thing in life is to enjoy URF!',
+                "Win or second place, do it fairly.",
+                "Win or lose, I'll feel good about myself. That's what is important.",
+                "Don't give up. Don't lose hope. Don't be bronze!!!",
+                "Win without boasting. Lose without excuse.",
+                "You learn more from losing than winning. You learn how to keep URFing.",
+                "Losing always gives an extra determination to work harder. SmartKappa",
+                "I love the winning, I can take the second place, but most of all I Love to play.",
+                "You've got to get to the stage in URF where going for it is more important than winning or losing.",
+                "If anything, you know, I think second place makes me even more motivated.",
+                "Losing is no disgrace if you've given your best. Kappa",
+                "You can't win unless you learn how to lose.",
+                "Sometimes you have to accept you can't win all the time.",
+                "Sometimes it is better to lose and do the right thing than to win and do the wrong thing. Kappa",
+                "To be a good loser is to learn how to win.",
+                "Winning is not everything, but wanting to win is.",
+                "You’re not obligated to win. You’re obligated to URFing. To the best you can do everyday.",
+                "The only way to prove that you’re a good at URF is to lose.",
+                "Never give up! Second place is only the first step to succeeding.",
+                "Never let feeders have the last word.",
+                "Winning is not everything - but making an effort to win is",
+                "When you win, say GG. When you lose, say ... lags."
+            )
+        );
+
+        return $messages[$type][mt_rand(0, count($messages[$type]) - 1)];
     }
 }

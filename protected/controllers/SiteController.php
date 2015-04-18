@@ -160,6 +160,7 @@ class SiteController extends Controller
             $model->attributes = $_POST['User'];
             $password = $model->password;
             $model->role = 'user';
+            $model->rank = 1;
             $model->save();
 
             $identity = new UserIdentity($model->login,$password);
@@ -170,5 +171,37 @@ class SiteController extends Controller
         }
 
         $this->render('register', array('model'=>$model));
+    }
+
+    public function actionLeague()
+    {
+        $current_page = (int)Yii::app()->request->getQuery('page');
+        $page_size = 20;
+        $db = Yii::app()->db;
+        if( Yii::app()->user->isGuest ){
+            $user = array('id'=>0, 'rank'=>1);
+        } else {
+            $user = $db->createCommand()->from('user')->where('id=:id', array('id'=>Yii::app()->user->id))->queryRow();
+        }
+
+        $players = $db->createCommand()->from('user')->where('rank=:rank', array('rank'=>$user['rank']))->order('elo DESC')->limit($page_size)->offset(($current_page-1)*$page_size)->queryAll();
+        $count = $db->createCommand()->select('COUNT(*) as count')->from('user')->where('rank=:rank', array('rank'=>$user['rank']))->queryScalar();
+
+        $item_count = $count;
+
+        $pages = new CPagination($item_count);
+        $pages->setPageSize($page_size);
+        // simulate the effect of LIMIT in a sql query
+        $end = ($pages->offset + $pages->limit <= $item_count ? $pages->offset + $pages->limit : $item_count);
+        $sample = range($pages->offset+1, $end);
+        $this->render('league', array(
+            'user'=>$user,
+            'players'=>$players,
+            'item_count'=>$item_count,
+            'page_size'=>$page_size,
+            'items_count'=>$item_count,
+            'pages'=>$pages,
+            'sample'=>$sample,
+        ));
     }
 }

@@ -58,8 +58,9 @@
                     <?php $this->widget('zii.widgets.CMenu',array(
                         'items'=>array(
                             array('label'=>'Home', 'url'=>array('/site/index')),
-                            array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                            array('label'=>'Contact', 'url'=>array('/site/contact')),
+                            array('label'=>'League', 'url'=>array('/site/league')),
+//                            array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+//                            array('label'=>'Contact', 'url'=>array('/site/contact')),
                             array('label'=>'Registration', 'url'=>array('/site/register')),
                             array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                             array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
@@ -71,7 +72,7 @@
     </nav>
 </div>
 
-<!--Parallax-->
+<? if( $this->id != 'match' ){ ?>
 <div class="parallax-container">
     <div class="section no-pad-bot">
         <div class="container">
@@ -82,7 +83,7 @@
             </div>
             <div class="row center">
                 <? if( Yii::app()->user->isGuest ){
-                    echo CHtml::link('Log In', '/site/register', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
+                    echo CHtml::link('Log In', '/site/login', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
                 } else {
                     echo CHtml::link('Fight', '/match', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
                 }
@@ -94,81 +95,49 @@
     </div>
     <div class="parallax"><img src="<?= Yii::app()->params['webRoot'].'/images/urf_logo.jpg';?>"></div>
 </div>
+<? } ?>
 
-<div class="section scrollspy" id="team">
-    <div class="container" style="text-align: center">
-        <?php echo $content; ?>
+<? if( $this->id == 'site' && $this->action->id == 'index' ){ ?>
+    <h2 class="center header text_h2"> Answer simple questions to become URF challenger! </h2>
+    <h4 class="center text_h2">The time for random clicking is over! It is now you have to show all your best or no one will ever notice you.
+        Think twice(or even better 3 times) before making your decision, because it will change everything. </h4>
+
+    <div class="parallax-container">
+        <div class="parallax"><img src="<?= Yii::app()->params['webRoot'].'/images/screen2.jpg';?>"></div>
     </div>
-</div>
+
+
+    <h4 class="center text_h2">
+        But be prepared, as long it goes, as harder it gets. <br>
+        Not only by competitor but the system will add more and more complication.<br>
+        You think you can handle it?
+    </h4>
+    <div class="center">
+        <? if( Yii::app()->user->isGuest ){
+            echo CHtml::link('Log In', '/site/login', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
+        } else {
+            echo CHtml::link('Fight', '/match', array('class'=>'btn-large waves-effect waves-light light-blue accent-3'));
+        }
+        ?>
+    </div>
+    <br>
+    <br>
+<? } else { ?>
+    <div class="section scrollspy" id="team">
+        <div class="container" style="text-align: center">
+            <?php echo $content; ?>
+        </div>
+    </div>
+<? }?>
 
 
 <!--Footer-->
 <footer id="contact" class="page-footer default_color scrollspy">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="mdi-action-account-circle prefix white-text"></i>
-                            <input id="icon_prefix" type="text" class="validate white-text">
-                            <label for="icon_prefix" class="white-text">First Name</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <i class="mdi-communication-email prefix white-text"></i>
-                            <input id="icon_email" type="email" class="validate white-text">
-                            <label for="icon_email" class="white-text">Email-id</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="mdi-editor-mode-edit prefix white-text"></i>
-                            <textarea id="icon_prefix2" class="materialize-textarea white-text"></textarea>
-                            <label for="icon_prefix2" class="white-text">Message</label>
-                        </div>
-                        <div class="col offset-s7 s5">
-                            <button class="btn waves-effect waves-light red darken-1" type="submit" name="action">Submit
-                                <i class="mdi-content-send right white-text"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">joashpereira.com</h5>
-                <ul>
-                    <li><a class="white-text" href="http://www.joashpereira.com/">Home</a></li>
-                    <li><a class="white-text" href="http://www.joashpereira.com/blog">Blog</a></li>
-                </ul>
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">Social</h5>
-                <ul>
-                    <li>
-                        <a class="white-text" href="https://www.behance.net/joashp">
-                            <i class="small fa fa-behance-square white-text"></i> Behance
-                        </a>
-                    </li>
-                    <li>
-                        <a class="white-text" href="https://www.facebook.com/joash.c.pereira">
-                            <i class="small fa fa-facebook-square white-text"></i> Facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a class="white-text" href="https://github.com/joashp">
-                            <i class="small fa fa-github-square white-text"></i> Github
-                        </a>
-                    </li>
-                    <li>
-                        <a class="white-text" href="https://www.linkedin.com/in/joashp">
-                            <i class="small fa fa-linkedin-square white-text"></i> Linkedin
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
     <div class="footer-copyright default_color">
         <div class="container">
-            Made by <a class="white-text" href="http://joashpereira.com">Joash Pereira</a>. Thanks to <a class="white-text" href="http://materializecss.com/">materializecss</a>
+            Inspired By <a class="white-text" href="https://developer.riotgames.com/discussion/riot-games-api/show/bX8Z86bm">RIOT API Challenge</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Developed By <a class="white-text" href="https://github.com/pro-sunny">ProSunny</a>
         </div>
     </div>
 </footer>

@@ -44,7 +44,7 @@ $form = $this->beginWidget('CActiveForm', array(
         </div>
 
         <div class="col offset-s7 s5">
-            <button class="btn waves-effect waves-light red darken-1" type="submit" name="action">Submit
+            <button class="btn waves-effect waves-light red darken-1" type="submit" name="action">Register
                 <i class="mdi-content-send right white-text"></i>
             </button>
         </div>

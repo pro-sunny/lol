@@ -5,9 +5,12 @@
             echo CHtml::image(Utils::getItemImagePath($item_id));
             ?>
         </div>
-        <? echo $name; ?><br>
+        <div class="item_name">
+            <? echo $name; ?>
+        </div>
+        <br>
         <div class="item_price">
-            <? echo $price; ?>
+            Price: <? echo $price; ?>
         </div>
     </div>
     <div class="clear"></div>

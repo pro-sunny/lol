@@ -18,6 +18,7 @@
             <? } ?>
         </div>
     </div>
+    <br>
     <div class="spell_info">
         <?= $spell['tooltip']?>
     </div>
