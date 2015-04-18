@@ -222,10 +222,10 @@ $this->widget('EToolTipster', array(
                         <?= CHtml::image(Utils::getItemImagePath($item_ids[4]), '', array('class'=>($item_ids[4]?'tooltip':'').' item', 'id'=>$item_ids[4]))?>
                         <?= CHtml::image(Utils::getItemImagePath($item_ids[5]), '', array('class'=>($item_ids[5]?'tooltip':'').' item', 'id'=>$item_ids[5]))?>
                     </p>
-
+                    <? /*
                     &nbsp;<?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;<br>
                     <?= $summoner['stats']['totalDamageTaken']?>
-
+                    */ ?>
 
                 </div>
             </div>
