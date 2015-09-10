@@ -4,37 +4,8 @@
  * @var $region string
  */
 
-// $base = 'https://'.$region.'.api.pvp.net/api/lol/'.$region.'/v2.2/match/'.$match_id.'?includeTimeline=true&api_key=';
-
-// $url = $base.Yii::app()->params['key'];
-
-// $response = Yii::app()->CURL->run($url);
-
-// $data = CJSON::decode($response);
-
-//$time_start = microtime(true);
-//$time_end = microtime(true);
-//$execution_time = ($time_end - $time_start);
-
-
-
 $summoners = Yii::app()->db->createCommand()->select('participants')->from('match')->where('id=:id', array('id'=>$match_id))->queryScalar();
 $summoners = CJSON::decode($summoners);
-
-// $summoners = $data['participants'];
-// $timeline = $data['timeline'];
-
-
-/*
-$events = array();
-foreach ($timeline['frames'] as $time) {
-    if( !empty($time['events']) ){
-        foreach ($time['events'] as $event) {
-            $events[$event['eventType']] = $event['eventType'];
-        }
-    }
-}
-*/
 
 $this->widget('EToolTipster', array(
     'target' => '.tooltip',
@@ -174,7 +145,6 @@ $this->widget('EToolTipster', array(
     })
 </script>
 
-
 <div class="row">
     <?
     $i = 1;
@@ -204,7 +174,6 @@ $this->widget('EToolTipster', array(
                             <?= CHtml::image($spells[$j]['image'], '', array('class'=>'tooltip spell', 'id'=>$summoner['championId'].'_'.$j))?>
                         <? } ?>
                     </div>
-
                     <?
                     echo CHtml::image($summonerSpell1['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell1Id'] ));
                     echo CHtml::image($summonerSpell2['image'], '', array('class'=>'tooltip spell', 'id'=>'0_'.$summoner['spell2Id'] ));
@@ -222,44 +191,15 @@ $this->widget('EToolTipster', array(
                         <?= CHtml::image(Utils::getItemImagePath($item_ids[4]), '', array('class'=>($item_ids[4]?'tooltip':'').' item', 'id'=>$item_ids[4]))?>
                         <?= CHtml::image(Utils::getItemImagePath($item_ids[5]), '', array('class'=>($item_ids[5]?'tooltip':'').' item', 'id'=>$item_ids[5]))?>
                     </p>
-                    <? /*
-                    &nbsp;<?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;<br>
-                    <?= $summoner['stats']['totalDamageTaken']?>
-                    */ ?>
+
+                    &nbsp;
+                    Dealt - <?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;<br>
+                    Taken - <?= $summoner['stats']['totalDamageTaken']?>
 
                 </div>
             </div>
         </div>
         <?
-        /*
-         *
-         * <div class="champion">
-            <div class="main">
-                <div class="cs <?= $class?>">
-                    <?= $summoner['stats']['minionsKilled']?>
-                </div>
-                <div class="gold <?= $class?>">
-                    <?= $summoner['stats']['goldEarned']?>
-                </div>
-                <div class="<?= $class?>">
-                    <?= $summoner['highestAchievedSeasonTier']?>
-                </div>
-            </div>
-            <div class="additional">
-                <div class="<?= $class?>">
-                    &nbsp;<?= $win_status[$summoner['stats']['winner']]?>&nbsp;
-                </div>
-                <div class="<?= $class?>">
-                    &nbsp;<?= $summoner['stats']['totalDamageDealtToChampions']?>&nbsp;
-                </div>
-                <div class="<?= $class?>">
-                    <?= $summoner['stats']['totalDamageTaken']?>
-                </div>
-            </div>
-
-        </div>
-         *
-         * */
         if ($i == 5) {
             $row_class = 'red_team'; ?>
             <br clear="all">

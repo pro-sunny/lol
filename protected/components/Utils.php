@@ -81,6 +81,158 @@ class Utils {
         return $data;
     }
 
+
+    public static function getItemInfo($item_id)
+    {
+        $item_info = self::$items_data['data'][$item_id];
+
+        return $item_info;
+    }
+
+    public static function getSummonerSpellName( $id ){
+        $spells = array(
+            1 => 'SummonerBoost',
+            2 => 'SummonerClairvoyance',
+            3 => 'SummonerExhaust',
+            4 => 'SummonerFlash',
+            6 => 'SummonerHaste',
+            7 => 'SummonerHeal',
+            11 => 'SummonerSmite',
+            12 => 'SummonerTeleport',
+            13 => 'SummonerMana',
+            14 => 'SummonerDot',
+            21 => 'SummonerBarrier',
+        );
+        return $spells[$id];
+    }
+
+    public static function getSummonerSpell( $id )
+    {
+        // https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/4?spellData=image&api_key=7ab85dd4-4731-4422-b7d0-a9878e04dd7c
+        if (!empty(self::$summoner_spells_data[$id])) {
+            return self::$summoner_spells_data[$id];
+        } else {
+            $name = self::getSummonerSpellName($id);
+
+            $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/summoner.json');
+            $data = CJSON::decode($string);
+
+            $spell = $data['data'][$name];
+
+            $image = Yii::app()->params['webRoot'].'/images/dragon_data/spell/'.$spell['image']['full'];
+
+            self::$summoner_spells_data[$id] = array('name'=>$spell['name'], 'description'=>$spell['description'], 'image'=>$image)  ;
+            return self::$summoner_spells_data[$id];
+        }
+
+    }
+
+    public function APIgetTimestamps()
+    {
+        $regions = Yii::app()->params['regions'];
+        $step = 60 * 5;
+        $time = (double)Yii::app()->db->createCommand()->select('timestamp')->from('timestamp')->order('timestamp DESC')->limit(1)->queryScalar();
+
+        for( $i = 0; $i < 10; $i++ ){
+            $matches = array();
+            $time += $step;
+            foreach ($regions as $region) {
+                $base = 'https://'.$region.'.api.pvp.net/api/lol/'.$region.'/v4.1/game/ids?beginDate='.$time.'&api_key=';
+                $url = $base.Yii::app()->params['key'];
+                $response = Yii::app()->CURL->run($url);
+                $data = CJSON::decode($response);
+                if (empty($data['status'])) {
+                    $matches[$region] = $data;
+                }
+            }
+            Yii::app()->db->createCommand()->insert('timestamp', array('timestamp'=>$time, 'matches'=>CJSON::encode($matches)));
+        }
+    }
+
+    public static function APIgetMatches( $limit = 10 )
+    {
+        $timestamps = Yii::app()->db->createCommand()->from('timestamp')->limit($limit, 10)->queryAll();
+        foreach ($timestamps as $row) {
+            $data = CJSON::decode($row['matches']);
+            foreach ($data as $region => $matches) {
+                if (!empty($matches)) {
+                    foreach ($matches as $id) {
+                        Yii::app()->db->createCommand()->insert('match', array('id'=>$id, 'region'=>$region));
+                    }
+                }
+            }
+        }
+    }
+
+    public static function APIgetMatchesParticipants( $limit = 10 )
+    {
+        $matches = Yii::app()->db->createCommand()->from('match')->where('participants = ""')->limit($limit)->queryAll();
+        foreach ($matches as $match) {
+            // $base = 'https://'.$match['region'].'.api.pvp.net/api/lol/'.$match['region'].'/v4.1/game/ids?beginDate='.$match['id'].'&api_key=';
+            $base = 'https://' . $match['region'] . '.api.pvp.net/api/lol/' . $match['region'] . '/v2.2/match/' . $match['id'] . '?includeTimeline=true&api_key=';
+            $url = $base . Yii::app()->params['key'];
+            $response = Yii::app()->CURL->run($url);
+            $data = CJSON::decode($response);
+            if (!empty($data['participants'])) {
+                Yii::app()->db->createCommand()->update('match', array('participants' => CJSON::encode($data['participants'])), 'id=:id', array('id' => $match['id']));
+            }
+        }
+    }
+
+    public static function getWinLoseMessage( $type )
+    {
+        $messages = array(
+            'win'=>array(
+                "I can't say, 'It doesn't matter if you win or lose.' It's not true. You go in to win.",
+                "Win or RITO, do it fairly.",
+                "I love the winning, I can take the second place, but most of all I Love to play.",
+                "You have won now, but the URF is not over yet",
+                "Losing is not in my vocabulary.",
+                "Winners never leave and leavers never win.",
+                "What does it take to be a champion? URF, sleep, eat, repeat!",
+                "There is no 'I' in team but there is in victory. Kappa",
+                "If you take no risks, you will suffer no defeats. But if you take risks, you win no victories.",
+                "You win by working hard, making tough decisions and picking Teemo!.",
+                "Only win matters, not the fail flashes.",
+                "One should always play fairly when one has the winning champions.",
+                "Challengers win by choice, not by accident.",
+                "You rarely win, but sometimes you do. Kappa",
+                "You have won. GJ",
+                "Sorry, no second places left for you",
+                "GG WP",
+                "When you win, say GG. When you lose, say GG.",
+                "The true competitors, though, are the ones who always play to win."
+            ),
+            'lose'=>array(
+                'Yesterday is not ours to recover, but tomorrow is ours to win or second place.',
+                'No matter if you win or lose, the most important thing in life is to enjoy URF!',
+                "Win or second place, do it fairly.",
+                "Win or lose, I'll feel good about myself. That's what is important.",
+                "Don't give up. Don't lose hope. Don't be bronze!!!",
+                "Win without boasting. Lose without excuse.",
+                "You learn more from losing than winning. You learn how to keep URFing.",
+                "Losing always gives an extra determination to work harder. SmartKappa",
+                "I love the winning, I can take the second place, but most of all I Love to play.",
+                "You've got to get to the stage in URF where going for it is more important than winning or losing.",
+                "If anything, you know, I think second place makes me even more motivated.",
+                "Losing is no disgrace if you've given your best. Kappa",
+                "You can't win unless you learn how to lose.",
+                "Sometimes you have to accept you can't win all the time.",
+                "Sometimes it is better to lose and do the right thing than to win and do the wrong thing. Kappa",
+                "To be a good loser is to learn how to win.",
+                "Winning is not everything, but wanting to win is.",
+                "You’re not obligated to win. You’re obligated to URFing. To the best you can do everyday.",
+                "The only way to prove that you’re a good at URF is to lose.",
+                "Never give up! Second place is only the first step to succeeding.",
+                "Never let feeders have the last word.",
+                "Winning is not everything - but making an effort to win is",
+                "When you win, say GG. When you lose, say ... lags."
+            )
+        );
+
+        return $messages[$type][mt_rand(0, count($messages[$type]) - 1)];
+    }
+
     public static function spellParser( $spell ){
         $tooltip = $spell['tooltip'];
 
@@ -145,104 +297,5 @@ class Utils {
         }
 
         return $tooltip;
-    }
-
-    public static function getItemInfo($item_id)
-    {
-        $item_info = self::$items_data['data'][$item_id];
-
-        return $item_info;
-    }
-
-    public static function getSummonerSpellName( $id ){
-        $spells = array(
-            1 => 'SummonerBoost',
-            2 => 'SummonerClairvoyance',
-            3 => 'SummonerExhaust',
-            4 => 'SummonerFlash',
-            6 => 'SummonerHaste',
-            7 => 'SummonerHeal',
-            11 => 'SummonerSmite',
-            12 => 'SummonerTeleport',
-            13 => 'SummonerMana',
-            14 => 'SummonerDot',
-            21 => 'SummonerBarrier',
-        );
-        return $spells[$id];
-    }
-
-    public static function getSummonerSpell( $id )
-    {
-        // https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell/4?spellData=image&api_key=7ab85dd4-4731-4422-b7d0-a9878e04dd7c
-        if (!empty(self::$summoner_spells_data[$id])) {
-            return self::$summoner_spells_data[$id];
-        } else {
-            $name = self::getSummonerSpellName($id);
-
-            $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/summoner.json');
-            $data = CJSON::decode($string);
-
-            $spell = $data['data'][$name];
-
-            $image = Yii::app()->params['webRoot'].'/images/dragon_data/spell/'.$spell['image']['full'];
-
-            self::$summoner_spells_data[$id] = array('name'=>$spell['name'], 'description'=>$spell['description'], 'image'=>$image)  ;
-            return self::$summoner_spells_data[$id];
-        }
-
-    }
-
-    public static function getWinLoseMessage( $type )
-    {
-        $messages = array(
-            'win'=>array(
-                "I can't say, 'It doesn't matter if you win or lose.' It's not true. You go in to win.",
-                "Win or RITO, do it fairly.",
-                "I love the winning, I can take the second place, but most of all I Love to play.",
-                "You have won now, but the URF is not over yet",
-                "Losing is not in my vocabulary.",
-                "Winners never leave and leavers never win.",
-                "What does it take to be a champion? URF, sleep, eat, repeat!",
-                "There is no 'i' in team but there is in win. Kappa",
-                "If you take no risks, you will suffer no defeats. But if you take no risks, you win no victories.",
-                "You win by working hard, making tough decisions and picking teemo!.",
-                "Only win matters, not the fail flashes.",
-                "One should always play fairly when one has the winning champions.",
-                "Challengers win by choice, not by accident.",
-                "You rarely win, but sometimes you do. Kappa",
-                "You have won. GJ",
-                "Sorry, no second places left for you",
-                "GG WP",
-                "When you win, say GG. When you lose, say GG.",
-                "The true competitors, though, are the ones who always play to win."
-            ),
-            'lose'=>array(
-                'Yesterday is not ours to recover, but tomorrow is ours to win or second place.',
-                'No matter if you win or lose, the most important thing in life is to enjoy URF!',
-                "Win or second place, do it fairly.",
-                "Win or lose, I'll feel good about myself. That's what is important.",
-                "Don't give up. Don't lose hope. Don't be bronze!!!",
-                "Win without boasting. Lose without excuse.",
-                "You learn more from losing than winning. You learn how to keep URFing.",
-                "Losing always gives an extra determination to work harder. SmartKappa",
-                "I love the winning, I can take the second place, but most of all I Love to play.",
-                "You've got to get to the stage in URF where going for it is more important than winning or losing.",
-                "If anything, you know, I think second place makes me even more motivated.",
-                "Losing is no disgrace if you've given your best. Kappa",
-                "You can't win unless you learn how to lose.",
-                "Sometimes you have to accept you can't win all the time.",
-                "Sometimes it is better to lose and do the right thing than to win and do the wrong thing. Kappa",
-                "To be a good loser is to learn how to win.",
-                "Winning is not everything, but wanting to win is.",
-                "You’re not obligated to win. You’re obligated to URFing. To the best you can do everyday.",
-                "The only way to prove that you’re a good at URF is to lose.",
-                "Never give up! Second place is only the first step to succeeding.",
-                "Never let feeders have the last word.",
-                "Winning is not everything - but making an effort to win is",
-                "When you win, say GG. When you lose, say ... lags."
-            )
-        );
-
-        return $messages[$type][mt_rand(0, count($messages[$type]) - 1)];
     }
 }

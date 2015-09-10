@@ -14,7 +14,6 @@ class MatchController extends Controller
                 'actions'=>array('view','delete'),
                 'roles'=>array('admin'),
             ),
-            // ???
             array('deny',
                 'actions'=>array('delete'),
                 'users'=>array('*'),
@@ -24,20 +23,14 @@ class MatchController extends Controller
 
 	public function actionIndex()
 	{
-
         $time_start = microtime(true);
 
         $match = $this->getRandomUserMatch( Yii::app()->user->id );
 
-
         $questions = Yii::app()->params['question_types'];
         $question_type = array_rand($questions, 1);
 
-        // $question_type = array_rand(Yii::app()->params['question_types']);
-//        $question_type = Yii::app()->params['question_types'][0];
-
         Yii::app()->db->createCommand()->insert('user_match', array('user_id'=>Yii::app()->user->id, 'match_id'=>$match['id'], 'question_type'=>$question_type));
-//        Yii::app()->user->setFlash('match_id', $match['id']);
         Yii::app()->user->setState('match_id', $match['id']);
         Yii::app()->user->setState('question_type', $question_type);
 
@@ -49,9 +42,6 @@ class MatchController extends Controller
 
     public function getRandomUserMatch( $user_id )
     {
-        // $offset = Yii::app()->db->createCommand(" SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM `match` ")->queryScalar();
-        // $match = Yii::app()->db->createCommand(" SELECT * FROM `match` WHERE participants != '' LIMIT $offset, 1 ")->queryRow();
-
         $matches = Yii::app()->db->createCommand()->from('match')->where('participants != ""')->queryAll();
         $match = $matches[mt_rand(0, count($matches) - 1)];
 
@@ -66,9 +56,9 @@ class MatchController extends Controller
 
     public function actionCheckAnswer()
     {
-        $id = Yii::app()->request->getPost('id');
+        $champion_id = Yii::app()->request->getPost('id');
         $db = Yii::app()->db;
-//        $match_id = Yii::app()->user->getFlash('match_id');
+
         $match_id = Yii::app()->user->getState('match_id');
         $question_type = Yii::app()->user->getState('question_type');
 
@@ -86,6 +76,7 @@ class MatchController extends Controller
             $data['damage_taken'][$summoner['participantId']] = $summoner['stats']['totalDamageTaken'];
         }
 
+        /* Getting champion id which was asked */
         $the_one = 0;
         if ( $question_type == 'highest_damage_dealt' ) {
             $the_one = array_keys($data['damage_done'], max($data['damage_done']));
@@ -101,7 +92,8 @@ class MatchController extends Controller
             $the_one = $the_one[0];
         }
 
-        $selected_champion = $summoners[$id-1]['championId'];
+        /* Finding out, what is users favourite champion */
+        $selected_champion = $summoners[$champion_id-1]['championId'];
         $user_champion = $db->createCommand()->from('user_champion')
             ->where('user_id=:user_id AND champion_id=:champion_id', array('user_id'=>Yii::app()->user->id,  'champion_id'=>$selected_champion))
             ->queryRow();
@@ -117,7 +109,7 @@ class MatchController extends Controller
 
         $rank_name = ucfirst(Yii::app()->params['ranks'][$user['rank']]);
 
-        if ($id == $the_one) {
+        if ($champion_id == $the_one) {
             $status = 'win';
             $wins++;
 
@@ -126,6 +118,7 @@ class MatchController extends Controller
                 $current_elo += $elo_change;
                 $elo_change = '<span class="green-text">+'.$elo_change.'</span>';
 
+                /* At 100 ELO player has a chance to upgrade its rank */
                 $message = Utils::getWinLoseMessage( 'win' );
                 if( $current_elo >= 100 ){
                     $current_elo = 100;
@@ -139,7 +132,9 @@ class MatchController extends Controller
                 $promo['played']++;
 
                 $rank = $rank_name.': promotion stage. Won: '.$promo['won'].' of '.$promo['games'];
-                if( $promo['won'] == 2 && $promo['played'] >= ($promo['games'] - 1) ){
+
+                /* After winning 2 promotion matches in 3 attempts, user gets new rank */
+                if( $promo['won'] == 2 && $promo['played'] <= $promo['games'] ){
                     $user['rank']++;
                     $promo = '';
                     $current_elo = 0;
@@ -188,8 +183,6 @@ class MatchController extends Controller
         } else {
             $promo = '';
         }
-
-
 
         $db->createCommand()->update('user',
             array('rank'=>$user['rank'], 'elo'=>$current_elo, 'promo'=>$promo, 'wins'=>$wins, 'games'=>$user['games']),

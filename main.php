@@ -18,19 +18,22 @@ return array(
 		'application.components.*',
         'application.extensions.*',
         'application.extensions.etooltipster.*',
+		'application.extensions.eval_math.*',
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		/*
+
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-		*/
-	),
+        'game',
+        'admin'
+
+    ),
 
 	// application components
 	'components'=>array(
@@ -46,6 +49,7 @@ return array(
 			'urlFormat'=>'path',
 			'rules'=>array(
 				'match'=>'match/index',
+                'game/<action:\w+>' => 'game/default/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -56,10 +60,10 @@ return array(
 		// uncomment the following to use a MySQL database
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=urf',
+			'connectionString' => 'mysql:host=mysql.hostinger.com.ua;dbname=u912878957_fight',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'u912878957_fight',
+			'password' => 'im1010',
 			'charset' => 'utf8',
 		),
 
@@ -99,12 +103,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-        'dragonImagePath' =>'5.7.2',
         'webRoot' => YiiBase::getPathOfAlias('webroot'),
-        'key' => require(dirname(__FILE__) . '/key.php'),
-        'regions' => array('na', 'eune', 'euw', 'kr', 'lan', 'las', 'oce', 'ru', 'tr'),
-        'question_types' => array('highest_damage_dealt', 'lowest_damage_dealt', 'highest_damage_taken', 'lowest_damage_taken'),
-        'ranks' => array(1=>'bronze', 2=>'silver', 3=>'gold', 4=>'platinum', 5=>'diamond', 6=>'challenger'),
-        // 'main_regions' => array('na', 'eune', 'euw', 'kr', 'ru')
 	),
 );
