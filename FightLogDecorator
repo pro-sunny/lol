@@ -1,0 +1,57 @@
+class RoundResult{
+	public $attacker;
+	public $defender;
+	
+	public $log;
+	
+
+	public function __contruct($attackerId, $defencerId){
+		$this->attacker = new User($attackerId);
+		$this->defencer = new User($defencerId);
+		$this->log = ['summary'=>['heal'=>0, 'damage'=>0, 'health'=>0], 'effects'=>[], 'effect_result'=>0, 'hits'=>[]];
+	}
+}
+
+abstract class ProcessResult {
+	abstract function process ( RoundResult $rr ){ return $rr->log };
+}
+
+abstract class DecorateProcess extends ProcessResult {
+	protected $processresult;
+	
+	function __construct ( ProcessResult $pr ){
+		$this->processresult = $pr;
+	}
+}
+
+class BonusRequest extends DecorateProcess {
+	function process( RoundResult $rr ){
+		
+		$db->execute('SELECT * FROM effects WHERE type = "bonus" AND user_id = '.$rr->attacker->id);
+		
+		$this->processresult->process($rr);
+	}
+}
+
+class EffectRequest extends DecorateProcess {
+	function process( RoundResult $rr ){
+		
+		$db->execute('SELECT * FROM effects WHERE type = "effect" AND user_id = '.$rr->attacker->id);
+		
+		$this->processresult->process($rr);
+	}
+}
+
+class HitRequest extends DecorateProcess {
+	function process( RoundResult $rr ){
+		
+		$db->execute('SELECT * FROM fight_hits WHERE user_id = '.$rr->attacker->id);
+		
+		$this->processresult->process($rr);
+	}
+}
+
+--------------------
+
+$process = new BonusRequest ( new EffectRequest ( new HitRequest () ) );
+$process->process( new RoundResult() ) ;
