@@ -54,4 +54,4 @@ class HitRequest extends DecorateProcess {
 --------------------
 
 $process = new BonusRequest ( new EffectRequest ( new HitRequest () ) );
-$process->process( new RoundResult() ) ;
+$process->process( new RoundResult(1, 2) ) ;
