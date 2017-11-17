@@ -1,0 +1,28 @@
+.champion .icon img{ width: 96px; }
+.champion .icon { width: 96px; margin: 0 auto}
+.summoner_spells{ width: 30px }
+.summoner_spells img, .additional img{ width:28px; padding: 2px }
+.kda{ width: 50px }
+.items{ width: 200px }
+.champions_data .item {width: 36px;padding: 0; }
+.first_row{height: 36px; margin-bottom: 4px;}
+.cs{ width: 30px }
+.gold{ width: 50px }
+.trinket{margin: 19px 0 0 2px;}
+
+.champion.selected .card{
+    margin-top: 5px;
+    /*-webkit-box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12)*/
+}
+.champion .blue_team{background: #f5fafe}
+.champion .red_team{background: #fff3f3}
+.champion.disabled .card{ background: #cccccc; cursor: default }
+
+.level{
+    position: absolute;
+    left: 44px;
+    top: 80px;
+    color: #ffffff;
+    font-weight: bold;
+}

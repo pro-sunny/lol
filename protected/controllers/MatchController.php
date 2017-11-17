@@ -23,8 +23,6 @@ class MatchController extends Controller
 
 	public function actionIndex()
 	{
-        $time_start = microtime(true);
-
         $match = $this->getRandomUserMatch( Yii::app()->user->id );
 
         $questions = Yii::app()->params['question_types'];
@@ -35,9 +33,6 @@ class MatchController extends Controller
         Yii::app()->user->setState('question_type', $question_type);
 
         $this->render('index', array('match_id'=>$match['id'], 'region'=>$match['region'], 'question'=>$questions[$question_type]));
-
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start);
 	}
 
     public function getRandomUserMatch( $user_id )

@@ -11,9 +11,7 @@ $this->breadcrumbs=array(
 
 $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/map.json');
 $data = CJSON::decode($string);
-// $data = json_decode($string, true);
 
-// $forbidden_items = $data['data'][10]['UnpurchasableItemList'];
 $forbidden_items = $data['data'][1]['UnpurchasableItemList'];
 
 //additional items to remove
@@ -31,7 +29,6 @@ $forbidden_items[] = '3137';
 
 $string = file_get_contents(Yii::app()->basePath.'/dragon_data/'.Yii::app()->params['dragonImagePath'].'/data/item.json');
 $data = CJSON::decode($string);
-// $data = json_decode($string, true);
 
 $tags = array();
 $items_by_type = array();
@@ -63,18 +60,6 @@ foreach ($items as $id => $item) {
         }
     }
 }
-
-
-
-// Doran's Shield
-// Showdown
-// Guardian's Horn
-// Enchantment: Cinderhulk
-
-//echo '<pre style="text-align: left">';
-//print_r($items);
-//echo '</pre>';
-
 
 ?>
 

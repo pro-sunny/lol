@@ -4,6 +4,11 @@
  * @var $region string
  */
 
+$baseUrl = $this->assetsBase;
+$cs = Yii::app()->getClientScript();
+$cs->registerScriptFile($baseUrl.'/js/match.js', CClientScript::POS_END);
+$cs->registerCssFile($baseUrl.'/css/match.css');
+
 $summoners = Yii::app()->db->createCommand()->select('participants')->from('match')->where('id=:id', array('id'=>$match_id))->queryScalar();
 $summoners = CJSON::decode($summoners);
 
@@ -61,89 +66,6 @@ $this->widget('EToolTipster', array(
 ));
 
 ?>
-<style>
-    .champion .icon img{ width: 96px; }
-    .champion .icon { width: 96px; margin: 0 auto}
-    .summoner_spells{ width: 30px }
-    .summoner_spells img, .additional img{ width:28px; padding: 2px }
-    .kda{ width: 50px }
-    .items{ width: 200px }
-    .champions_data .item {width: 36px;padding: 0; }
-    .first_row{height: 36px; margin-bottom: 4px;}
-    .cs{ width: 30px }
-    .gold{ width: 50px }
-    .trinket{margin: 19px 0 0 2px;}
-
-    .champion.selected .card{
-        margin-top: 5px;
-        /*-webkit-box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12);
-        box-shadow: 0 2px 25px 10px rgba(0, 0, 0, 0.16), 0 2px 20px 0 rgba(0, 0, 0, 0.12)*/
-    }
-    .champion .blue_team{background: #f5fafe}
-    .champion .red_team{background: #fff3f3}
-    .champion.disabled .card{ background: #cccccc; cursor: default }
-
-    .level{
-        position: absolute;
-        left: 44px;
-        top: 80px;
-        color: #ffffff;
-        font-weight: bold;
-    }
-</style>
-
-<script>
-    console.log(<?= $match_id?>);
-    $(function(){
-        $('.champion').click(function(){
-            if ($(this).hasClass('disabled')) {
-                return false;
-            }
-            $('.champion').each(function(){
-                $(this).find('.card').removeClass('z-depth-4');
-            });
-            $('.champion.selected').removeClass('selected');
-
-            $(this).addClass('selected');
-            $(this).find('.card').addClass('z-depth-4');
-        });
-
-        $('.lock_in').click(function(){
-
-            if( !$('.champion.selected').length ){
-                return false;
-            }
-
-            var id = $('.champion.selected').attr('id');
-
-            $('.champion').each(function(){
-                if( !$(this).hasClass('selected') ){
-                    $(this).addClass('disabled');
-                }
-            });
-
-            $.post('match/checkAnswer', {id:id}, function(data){
-                var counter = 4;
-                var i = setInterval(function(){
-                    $('.rank').html(counter - 1).show();
-                    counter--;
-                    if(counter === 0) {
-                        clearInterval(i);
-
-                        $('.lock_in').hide();
-                        $('.next_fight').show();
-                        $('.rank').html(data.rank);
-                        $('.status_'+data.status).show();
-                        $('.message').html('<em>'+data.message+'</em>');
-                    }
-                }, 1000);
-
-
-            }, 'json');
-            return false;
-        })
-    })
-</script>
 
 <div class="row">
     <?
